@@ -1,6 +1,5 @@
 <template>
-    <app-header></app-header>
-
+    <layout>
     <div class="row">
         <div class="col-md-6 offset-md-3">
             <form method="post" @submit.prevent="submit">
@@ -25,8 +24,10 @@
 
                 <input type="submit" class="btn btn-primary btn-block" value="Save" />
             </form>
+            <button type="button" class="btn btn-warning" @click="tes">Warning</button>
         </div>
     </div>
+</layout>
 </template>
 
 <script>
@@ -35,12 +36,14 @@ import ErrorsAndMessages from "../../Partials/ErrorsAndMessages";
 import {inject, reactive} from "vue";
 import {Inertia} from "@inertiajs/inertia";
 import {usePage} from "@inertiajs/inertia-vue3";
+import Layout from "../../Partials/Layout";
 
 export default {
     name: "Create",
     components: {
         ErrorsAndMessages,
-        AppHeader
+        AppHeader, 
+        Layout
     },
     props: {
         errors: Object
@@ -67,6 +70,11 @@ export default {
 
         return {
             form, submit, selectFile
+        }
+    },
+    methods:{
+        tes(){
+             this.$inertia.post('/tes', this.form)
         }
     }
 }

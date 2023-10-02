@@ -10,16 +10,20 @@
         "production": "mix --production"
     },
     "devDependencies": {
-        "axios": "^0.21",
+        "axios": "^0.21.1",
         "laravel-mix": "^6.0.6",
         "lodash": "^4.17.19",
         "postcss": "^8.1.14"
     },
     "dependencies": {
+        "@fortawesome/fontawesome-svg-core": "^6.4.2",
         "@inertiajs/inertia": "^0.9.0",
         "@inertiajs/inertia-vue3": "^0.4.0",
         "@inertiajs/progress": "^0.2.5",
         "@vue/compiler-sfc": "^3.0.11",
+        "primeicons": "^4.1.0",
+        "primevue": "^3.6.4",
+        "vee-validate": "^4.5.7",
         "vue": "^3.0.11",
         "vue-loader": "^16.2.0"
     }

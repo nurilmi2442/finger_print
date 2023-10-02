@@ -9,3 +9,17 @@
     color: #fff !important;
 }
 
+.overlay-bg{
+	position: relative;
+    width: 99%;
+    height: 100%;
+    background-color: currentColor;
+    opacity: 0.4;
+}
+
+@media screen and (max-width: 600px) {
+  .mobile-hidden {
+    display: none;
+  }
+}
+

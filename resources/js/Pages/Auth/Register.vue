@@ -1,5 +1,4 @@
 <template>
-        <app-header></app-header>
         <div class="row">
             <div class="col-md-6 offset-md-3">
                 <form method="post" @submit.prevent="submit">
