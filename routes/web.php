@@ -14,6 +14,7 @@ use App\Http\Controllers\{
     CetakController,
     CekController,
     FingerController,
+    MesinController,
     ScheduleController
 };
 use Illuminate\Support\Facades\Route;
@@ -148,3 +149,7 @@ Route::prefix('finger')->name('finger.')->group(function () {
     Route::get('/schedule', [FingerController::class, 'pageSchedule'])->name('pageSchedule');
 });
 
+Route::prefix('mesin')->name('mesin.')->group(function () {
+    Route::get('/datapresensi', [MesinController::class, 'pageDatapresensi'])->name('pageDatapresensi');
+    Route::get('/get-datapresensi', [MesinController::class, 'GetDatapresensi'])->name('GetDatapresensi');
+});

@@ -65,7 +65,7 @@
               </li>
               <li class="nav-item">
                 <a :href="$route('finger.pageDatamesin')" class="nav-link" :class="$route().current('finger.pageDatamesin') ? 'active' : ''">
-                <i class="fa-regular fa-hard-drive" style="padding-right: 5px; padding-left: 15px;" ></i>
+                <i class="fa-solid fa-hard-drive" style="padding-right: 5px; padding-left: 15px;" ></i>
                   <p>  Data Mesin </p>
                 </a>
               </li>
@@ -103,6 +103,24 @@
                 <a :href="$route('finger.pageSchedule')" class="nav-link" :class="$route().current('finger.pageSchedule') ? 'active' : ''">
                 <i class="fa-solid fa-calendar-week" style="padding-right:5px; padding-left: 15px;"></i>
                   <p> Schedule</p>
+                </a>
+              </li>
+            </ul>
+          </li>
+
+          <li class="nav-item" :class="$route().current().indexOf('mesin') >= 0 ? 'menu-open' : ''">
+            <a href="#" class="nav-link" :class="$route().current().indexOf('mesin') >= 0 ? 'active' : ''">
+                <i class="fa-solid fa-fingerprint" style="padding-right:5px; "></i>
+              <p>
+                Mesin
+                <i class="right fas fa-angle-left"></i>
+              </p>
+            </a>
+            <ul class="nav nav-treeview">
+              <li class="nav-item">
+                <a :href="$route('mesin.pageDatapresensi')" class="nav-link" :class="$route().current('mesin.pageDatapresensi') ? 'active' : ''">
+                <i class="fa-solid fa-download" style="padding-right: 5px; padding-left: 15px;" ></i>
+                  <p>    Download Data Presensi </p>
                 </a>
               </li>
             </ul>
