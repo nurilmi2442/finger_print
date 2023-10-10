@@ -189,7 +189,6 @@ export default {
         this.dataGroupshift = this.$page.props.groupshift;
         this.dataShift = this.$page.props.datashift;
         this.dataSchedulemaster = this.$page.props.schedulemaster;
-
     }
 
 };

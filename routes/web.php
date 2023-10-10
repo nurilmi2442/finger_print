@@ -13,9 +13,9 @@ use App\Http\Controllers\{
     TransaksiController,
     CetakController,
     CekController,
+    UserfingerController,
     FingerController,
     MesinController,
-    ScheduleController
 };
 use Illuminate\Support\Facades\Route;
 
@@ -152,4 +152,13 @@ Route::prefix('finger')->name('finger.')->group(function () {
 Route::prefix('mesin')->name('mesin.')->group(function () {
     Route::get('/datapresensi', [MesinController::class, 'pageDatapresensi'])->name('pageDatapresensi');
     Route::get('/get-datapresensi', [MesinController::class, 'GetDatapresensi'])->name('GetDatapresensi');
+    Route::get('/get-datafingerdatabase', [MesinController::class, 'GetFingerdatabase'])->name('GetDatapresensi');
+
+    Route::get('/datauserfinger', [UserfingerController::class, 'pageUserfinger'])->name('pageUserfinger');
+    Route::get('/get-datauserfinger', [UserfingerController::class, 'GetUserfinger'])->name('GetUserfinger');
+    Route::get('/get-userfingerdatabase', [UserfingerController::class, 'GetUserdatabase'])->name('GetUserfinger');
+    Route::post('/simpan-uploaduser', [UserfingerController::class, 'uploadUser'])->name('uploadUser');
+    Route::post('/del-user', [UserfingerController::class, 'hapusUser'])->name('hapusUser');
+
+    Route::get('/get-synchornizefinger', [UserfingerController::class, 'Getfinger'])->name('Getfinger');
 });

@@ -143,7 +143,6 @@ export default {
             await this.$toast.add({severity:'success', summary: 'Informasi!', detail:'Berhasil Di simpan', life: 3000});
             await this.loadLazyData();
             this.display = false;
-
         },
         onDelete(data){
             this.$confirm.require({

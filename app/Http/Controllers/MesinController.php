@@ -4,15 +4,33 @@ namespace App\Http\Controllers;
 
 use App\Models\Datamesin;
 use App\Models\Datapresensi;
+use App\Models\Sites;
 
+use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
 
 class MesinController extends Controller
 {
-    public  function __construct()
-    {
-        $this->middleware("auth");
+    public function cek($pin, $datetime){
+
+        $data = [
+            'pin' => $pin,
+            'datetime' => $datetime,
+        ];
+
+        $cekdata = DB::table('mesin_finger')
+        ->where('pin', $data['pin'])
+        ->where('datetime', $data['datetime'])
+        ->first();
+
+        if (!$cekdata) {
+            return true;
+        }
+        else {
+           return false;
+        }
+
     }
 
 
@@ -21,14 +39,18 @@ class MesinController extends Controller
         $project = $request->query('ip');
 
         $datamesin = Datamesin::all();
+        $datasite = Sites::all();
 
         if($project){
             $datamesin = $datamesin->where('id', '=', $project);
         }
 
         return Inertia::render('Mesin/Datapresensi', [
-            'datamesin' => $datamesin
+            'datamesin' => $datamesin,
+            'site' => $datasite
         ]);
+
+
     }
 
     public function GetDatapresensi(Request $request)
@@ -68,18 +90,37 @@ class MesinController extends Controller
             $Verified = $this->Parse_Data($data, "<Verified>", "</Verified>");
             $Status = $this->Parse_Data($data, "<Status>", "</Status>");
 
-            $finger[] = [
-                'pin'=>$PIN,
-                'datetime'=>$DateTime,
-                'verified'=> $Verified,
-                'status'=>$Status
-            ];
+            if ($PIN !=""){
+
+                $cekdata = $this->cek($PIN, $DateTime);
+                if ($cekdata){
+                    $finger[] = [
+                        'pin'=>$PIN,
+                        'id_mesin'=>$request->ip,
+                        'datetime'=>$DateTime,
+                        'verified'=> $Verified,
+                        'status'=>$Status
+                    ];
+                }
+
+            }
         }
+        DB::table('mesin_finger')->insert($finger);
 
         return response()->json([
             'finger' => $finger,
             'message' => 'Berhasil di dapat']);
+    }
 
-
+    public function GetFingerdatabase(Request $request)
+    {
+        $datafingerdb = DB::table('mesin_finger');
+        if($request->ip){
+            $datafingerdb=$datafingerdb->where('id_mesin', $request->ip);
+        }
+        $datafingerdb = $datafingerdb->get();
+        return response()->json([
+            'datafingerdb' => $datafingerdb
+        ]);
     }
 }

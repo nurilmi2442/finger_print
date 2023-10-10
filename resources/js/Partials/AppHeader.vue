@@ -48,8 +48,8 @@
               <p> Home </p>
             </a>
           </li>
-          <li class="nav-item" :class="$route().current().indexOf('finger') >= 0 ? 'menu-open' : ''">
-            <a href="#" class="nav-link" :class="$route().current().indexOf('finger') >= 0 ? 'active' : ''">
+          <li class="nav-item" :class="$route().current().indexOf('finger.') >= 0 ? 'menu-open' : ''">
+            <a href="#" class="nav-link" :class="$route().current().indexOf('finger.') >= 0 ? 'active' : ''">
                 <i class="fa-solid fa-fingerprint" style="padding-right:5px; "></i>
               <p>
                 Finger Print
@@ -121,6 +121,12 @@
                 <a :href="$route('mesin.pageDatapresensi')" class="nav-link" :class="$route().current('mesin.pageDatapresensi') ? 'active' : ''">
                 <i class="fa-solid fa-download" style="padding-right: 5px; padding-left: 15px;" ></i>
                   <p>    Download Data Presensi </p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a :href="$route('mesin.pageUserfinger')" class="nav-link" :class="$route().current('mesin.pageUserfinger') ? 'active' : ''">
+                <i class="fa-solid fa-download" style="padding-right: 5px; padding-left: 15px;" ></i>
+                  <p>    Data User & Finger print</p>
                 </a>
               </li>
             </ul>

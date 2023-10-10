@@ -11,14 +11,10 @@ class Datamesin extends Model
     protected $primaryKey = 'id';
 
     protected $guarded = [];
+    // protected $fillable = ['id'];
 
-    // protected $fillable = [
-    //     'ip',
-    //     'mac_address',
-    //     'comkey',
-    //     'status',
-    //     'id_sites',
-    //     'lokasi',
-    // ];
-
+    // public function userfinger()
+    // {
+    //     return $this->belongsTo(Userfinger::class, 'id_mesin', 'id');
+    // }
 }
