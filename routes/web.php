@@ -16,6 +16,7 @@ use App\Http\Controllers\{
     UserfingerController,
     FingerController,
     MesinController,
+    UsersController,
 };
 use Illuminate\Support\Facades\Route;
 
@@ -145,6 +146,11 @@ Route::prefix('finger')->name('finger.')->group(function () {
     Route::get('/schedulemaster', [FingerController::class, 'pageSchedulemaster'])->name('pageSchedulemaster');
     Route::post('/del-schedulemaster', [FingerController::class, 'hapusSchedulemaster'])->name('hapusSchedulemaster');
     Route::get('/get-schedulemaster', [FingerController::class, 'pageSchedulemaster'])->name('getSchedulemaster');
+
+    Route::get('/users', [UsersController::class, 'pageUsers'])->name('pageUsers');
+    Route::get('/get-users', [UsersController::class, 'pageUsers'])->name('getUsers');
+    Route::post('/simpan-users', [UsersController::class, 'simpanUsers'])->name('simpanUsers');
+    Route::post('/del-users', [UsersController::class, 'hapusUsers'])->name('hapusUsers');
 
     Route::get('/schedule', [FingerController::class, 'pageSchedule'])->name('pageSchedule');
 });

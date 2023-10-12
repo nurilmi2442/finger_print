@@ -58,9 +58,10 @@
             <DataTable :value="dataUserfinger" paginator :rows="20" :rowsPerPageOptions="[5, 10, 20, 50]" :loading="loading"  tableStyle="min-width: 50rem">
                 <Column field="pin2" header="NIP"></Column>
                 <Column field="name" header="Name"></Column>
-                <Column field="template" header="Data finger"></Column>
+                <Column field="jumlah_finger" header="Data finger"></Column>
                 <Column field="">
                     <template #body="slotProps">
+                        <Button v-if = "slotProps.data.jumlah_finger >0" icon = "fa-solid fa-fingerprint" class="p-button-rounded p-button-fingerprint" style="margin-right: 10px;"></Button>
                         <Button @click="onDelete(slotProps.data)" icon="pi pi-trash" class="p-button-rounded p-button-warning" ></Button>
                     </template>
                 </Column>
@@ -112,7 +113,6 @@ export default {
             modalTitle:null,
             submitted: false,
             form:{
-                id:null,
                 ip:null,
                 name:null,
                 id_sites:null,
@@ -121,7 +121,6 @@ export default {
 
             },
             initform:{
-                id:null,
                 ip:null,
                 name:null,
                 id_sites:null,

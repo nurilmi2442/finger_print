@@ -105,6 +105,12 @@
                   <p> Schedule</p>
                 </a>
               </li>
+              <li class="nav-item">
+                <a :href="$route('finger.pageUsers')" class="nav-link" :class="$route().current('finger.pageUsers') ? 'active' : ''">
+                <i class="fa-solid fa-user" style="padding-right:5px; padding-left: 15px;"></i>
+                  <p> Users</p>
+                </a>
+              </li>
             </ul>
           </li>
 

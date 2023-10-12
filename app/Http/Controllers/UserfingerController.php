@@ -68,11 +68,7 @@ class UserfingerController extends Controller
             echo "<p>Koneksi Gagal</p>";
         }
 
-        $result = DB::table('data_finger')
-        ->leftJoin('user_finger', 'data_finger.pin', '=', 'user_finger.pin2')
-        ->select('user_finger.pin2', DB::raw('COUNT(user_finger.pin2) AS jumlah_finger'))
-        ->groupBy('user_finger.pin2')
-        ->get();
+
 
         $finger = [];
         $dataFinger =[];
@@ -177,7 +173,11 @@ class UserfingerController extends Controller
 
     public function GetUserdatabase(Request $request)
     {
-        $datauserfingerdb= DB::table('user_finger');
+        $datauserfingerdb = DB::table('user_finger')
+        ->leftJoin('data_finger', 'user_finger.pin2', '=', 'data_finger.pin')
+        ->select('user_finger.pin2','user_finger.name', DB::raw('COUNT(user_finger.pin2) AS jumlah_finger'))
+        ->groupBy('user_finger.pin2', 'user_finger.name');
+
         if($request->ip){
             $datauserfingerdb=$datauserfingerdb->where('id_mesin', $request->ip);
         }
