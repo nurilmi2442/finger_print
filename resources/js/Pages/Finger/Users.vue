@@ -38,8 +38,7 @@
                     <Button label="Tambah" icon="pi pi-plus" class="p-button-sm p-button-sm" @click="tambah"></Button>
                 </template>
             </Toolbar>
-
-            <DataTable :value="dataUsers" paginator :rows="20" :rowsPerPageOptions="[5, 10, 20, 50]" :loading="loading"  tableStyle="min-width: 50rem">
+            <DataTable :value="dataUsers" paginator :rows="20" :rowsPerPageOptions="[5, 10, 20, 50]" :loading="loading"  tableStyle="min-width: 50rem" @page="onPage($event)">
                 <Column field="" header="No">
                     <template #body="slotProps">
                         {{ ((lazyParams.page - 1)) + slotProps.index + 1 }}

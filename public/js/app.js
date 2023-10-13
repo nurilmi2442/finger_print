@@ -17109,10 +17109,11 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 
               case 3:
                 res = _context.sent;
+                console.log(res);
                 _this.dataMesin = res.data.data;
                 _this.loading = false;
 
-              case 6:
+              case 7:
               case "end":
                 return _context.stop();
             }
@@ -26928,7 +26929,10 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
         rows: 20,
         rowsPerPageOptions: [5, 10, 20, 50],
         loading: $data.loading,
-        tableStyle: "min-width: 50rem"
+        tableStyle: "min-width: 50rem",
+        onPage: _cache[6] || (_cache[6] = function ($event) {
+          return $options.onPage($event);
+        })
       }, {
         empty: (0,vue__WEBPACK_IMPORTED_MODULE_0__.withCtx)(function () {
           return [_hoisted_11];
