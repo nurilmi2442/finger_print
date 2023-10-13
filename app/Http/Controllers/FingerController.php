@@ -108,7 +108,7 @@ class FingerController extends Controller
 
         $title = 'datamesin';
 
-        $datamesin = Datamesin::select('datamesin.id', 'ip', 'mac_address', 'comkey', 'status', 'id_sites', 'lokasi','sites.nama')
+        $datamesin = Datamesin::select('datamesin.id', 'ip', 'mac_address', 'comkey', 'status', 'id_sites', 'lokasi','sites.nama','datamesin.sn','last_updated')
         ->selectRaw(" case when status = 1 then 'Aktif' when status = 0 then 'Tidak Aktif' else null end as status_nama ")
         ->leftJoin('sites', 'sites.id', '=', 'datamesin.id_sites');
 
@@ -151,6 +151,7 @@ class FingerController extends Controller
                 'status' => $request->input('status'),
                 'id_sites' => $request->input('id_sites'),
                 'lokasi' => $request->input('lokasi'),
+                'sn' => $request->input('sn'),
             ]);
         } else {
             $validatedData = $request->validate([
@@ -160,6 +161,7 @@ class FingerController extends Controller
                 'status' => 'required',
                 'id_sites' => 'required',
                 'lokasi' => 'required',
+                'sn' => 'required',
             ]);
             $datamesin = Datamesin::create(
                 [
@@ -169,6 +171,7 @@ class FingerController extends Controller
                     'status' => $validatedData['status'],
                     'id_sites' => $validatedData['id_sites'],
                     'lokasi' => $validatedData['lokasi'],
+                    'sn' => $validatedData['sn'],
                 ]
             );
         }

@@ -1,8 +1,8 @@
 import httpClient from './httpClient';
 
-const simpansites = (params) => httpClient.post('/finger/simpan-sites', params);
-const getsites = (params) => httpClient.get('/finger/get-sites', { params });
-const hapussites = (params) => httpClient.post('/finger/del-sites', params);
+const simpansites = (params) => httpClient.post('/device/simpan-sites', params);
+const getsites = (params) => httpClient.get('/device/get-sites', { params });
+const hapussites = (params) => httpClient.post('/device/del-sites', params);
 
 export {
     simpansites,

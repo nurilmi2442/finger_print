@@ -11,6 +11,14 @@
                   <InputText type="text" style="width: 100%!important" v-model="form.ip"/>
                 </div>
         </div>
+
+        <div class="mb-3 row">
+                <label class="col-md-4 col-form-label">Serial Number</label>
+                <div class="col-md-8">
+                  <InputText type="text" style="width: 100%!important" v-model="form.sn"/>
+                </div>
+            </div>
+
          <div class="mb-3 row">
                 <label class="col-md-4 col-form-label">Mac Address</label>
                 <div class="col-md-8">
@@ -83,11 +91,13 @@
                     </template>
                 </Column>
                 <Column field="ip" header="IP Address"></Column>
+                <Column field="sn" header="Serial Number"></Column>
                 <Column field="mac_address" header="Mac Address"></Column>
                 <Column field="comkey" header="Comkey"></Column>
                 <Column field="status_nama" header="Status"></Column>
                 <Column field="nama" header="Site"></Column>
                 <Column field="lokasi" header="Location"></Column>
+                <Column field="last_updated" header="Last Updated"></Column>
                 <Column field="">
                     <template #body="slotProps">
                         <Button icon="pi pi-pencil" class="p-button-rounded p-button-success p-mr-2" @click="onEdit(slotProps.data)" style="margin-right: 10px;"/>
@@ -141,7 +151,8 @@ export default {
                 comkey:null,
                 status:null,
                 id_sites:null,
-                lokasi:null
+                lokasi:null,
+                sn:null
             },
             initform:{
                 id:null,
@@ -150,18 +161,14 @@ export default {
                 comkey:null,
                 status:null,
                 id_sites:null,
-                lokasi:null
+                lokasi:null,
+                sn:null
 
             },
             data : [],
             lazyParams:{
                 page:1
             },
-            statuses: [
-                {label: 'INSTOCK', value: 'instock'},
-                {label: 'LOWSTOCK', value: 'lowstock'},
-                {label: 'OUTOFSTOCK', value: 'outofstock'}
-            ]
 
         }
     },

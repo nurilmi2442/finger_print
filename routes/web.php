@@ -17,6 +17,7 @@ use App\Http\Controllers\{
     FingerController,
     MesinController,
     UsersController,
+    IclockController
 };
 use Illuminate\Support\Facades\Route;
 
@@ -31,6 +32,15 @@ use Illuminate\Support\Facades\Route;
 | contains the "web" middleware group. Now create something great!
 |
 */
+
+
+// handshake
+Route::get('/iclock/cdata', [IclockController::class, 'handshake']);
+// request dari device
+Route::post('/iclock/cdata', [IclockController::class, 'receiveRecords']);
+
+
+
 
 Route::get('login', [LoginController::class, 'showLoginForm'])->name('showLoginForm')->middleware('guest');
 Route::get('register', [RegisterController::class, 'showRegisterForm'])->name('showRegisterForm')->middleware('guest');
@@ -112,7 +122,7 @@ Route::resource('post', PostsController::class);
 
 Route::redirect('/', 'so');
 
-Route::prefix('finger')->name('finger.')->group(function () {
+Route::prefix('device')->name('device.')->group(function () {
     Route::get('/sites', [FingerController::class, 'pageSites'])->name('pageSites');
     Route::get('/get-sites', [FingerController::class, 'pageSites'])->name('getsites');
     Route::post('/simpan-sites', [FingerController::class, 'simpanSites'])->name('simpansites');
@@ -122,7 +132,9 @@ Route::prefix('finger')->name('finger.')->group(function () {
     Route::get('/get-datamesin', [FingerController::class, 'pageDatamesin'])->name('getdatamesin');
     Route::post('/simpan-datamesin', [FingerController::class, 'simpanDatamesin'])->name('simpandatamesin');
     Route::post('/del-datamesin', [FingerController::class, 'hapusDatamesin'])->name('hapusdatamesin');
+});
 
+Route::prefix('finger')->name('finger.')->group(function () {
     Route::get('/departemen', [FingerController::class, 'pageDepartemen'])->name('pageDepartemen');
     Route::get('/get-departemen', [FingerController::class, 'pageDepartemen'])->name('getDepartemen');
     Route::post('/simpan-departemen', [FingerController::class, 'simpanDepartemen'])->name('simpanDepartemen');

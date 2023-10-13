@@ -30,7 +30,7 @@
   <aside class="main-sidebar sidebar-dark-primary elevation-4" style="position: fixed;">
     <!-- Brand Logo -->
     <div class="brand-link text-center">
-      <span class="brand-text font-weight-light text" style="font-size: 25px;"><b style="color: #007bff;">FINGER</b> PRINT</span>
+      <span class="brand-text font-weight-light text" style="font-size: 25px;"><b style="color: #007bff;">FINGER</b>PRINT</span>
     </div>
 
     <!-- Sidebar -->
@@ -48,27 +48,41 @@
               <p> Home </p>
             </a>
           </li>
-          <li class="nav-item" :class="$route().current().indexOf('finger.') >= 0 ? 'menu-open' : ''">
-            <a href="#" class="nav-link" :class="$route().current().indexOf('finger.') >= 0 ? 'active' : ''">
-                <i class="fa-solid fa-fingerprint" style="padding-right:5px; "></i>
+
+           <li class="nav-item" :class="$route().current().indexOf('device.') >= 0 ? 'menu-open' : ''">
+            <a href="#" class="nav-link" :class="$route().current().indexOf('device.') >= 0 ? 'active' : ''">
+                <i class="fa-solid fa-laptop" style="padding-right:5px; "></i>
               <p>
-                Finger Print
+                Device
                 <i class="right fas fa-angle-left"></i>
               </p>
             </a>
-            <ul class="nav nav-treeview">
-              <li class="nav-item">
-                <a :href="$route('finger.pageSites')" class="nav-link" :class="$route().current('finger.pageSites') ? 'active' : ''">
+
+             <ul class="nav nav-treeview">
+                 <li class="nav-item">
+                <a :href="$route('device.pageSites')" class="nav-link" :class="$route().current('device.pageSites') ? 'active' : ''">
                 <i class="fa-solid fa-location-dot" style="padding-right: 5px; padding-left: 15px;" ></i>
                   <p>    Sites </p>
                 </a>
               </li>
               <li class="nav-item">
-                <a :href="$route('finger.pageDatamesin')" class="nav-link" :class="$route().current('finger.pageDatamesin') ? 'active' : ''">
-                <i class="fa-solid fa-hard-drive" style="padding-right: 5px; padding-left: 15px;" ></i>
+                <a :href="$route('device.pageDatamesin')" class="nav-link" :class="$route().current('device.pageDatamesin') ? 'active' : ''">
+                <i class="fa-solid fa-laptop" style="padding-right: 5px; padding-left: 15px;" ></i>
                   <p>  Data Mesin </p>
                 </a>
               </li>
+             </ul>
+          </li>
+          <li class="nav-item" :class="$route().current().indexOf('finger.') >= 0 ? 'menu-open' : ''">
+            <a href="#" class="nav-link" :class="$route().current().indexOf('finger.') >= 0 ? 'active' : ''">
+                <i class="fa-solid fa-hard-drive" style="padding-right:5px; "></i>
+              <p>
+                Master
+                <i class="right fas fa-angle-left"></i>
+              </p>
+            </a>
+            <ul class="nav nav-treeview">
+             
               <li class="nav-item">
                 <a :href="$route('finger.pageDepartemen')" class="nav-link" :class="$route().current('finger.pageDepartemen') ? 'active' : ''">
                 <i class="fa-solid fa-users-line" style="padding-right: 5px; padding-left: 15px;" ></i>
@@ -114,11 +128,11 @@
             </ul>
           </li>
 
-          <li class="nav-item" :class="$route().current().indexOf('mesin') >= 0 ? 'menu-open' : ''">
-            <a href="#" class="nav-link" :class="$route().current().indexOf('mesin') >= 0 ? 'active' : ''">
+          <li class="nav-item" :class="$route().current().indexOf('mesin.') >= 0 ? 'menu-open' : ''">
+            <a href="#" class="nav-link" :class="$route().current().indexOf('mesin.') >= 0 ? 'active' : ''">
                 <i class="fa-solid fa-fingerprint" style="padding-right:5px; "></i>
               <p>
-                Mesin
+                Report
                 <i class="right fas fa-angle-left"></i>
               </p>
             </a>
