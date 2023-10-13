@@ -13,6 +13,7 @@ class UsersController extends Controller
     {
        $users = Datausers::all();
 
+
         if ($request->ajax()) {
             return response()->json(['data' =>$users, 'message' => 'Berhasil di dapat']);
         }
@@ -31,7 +32,7 @@ class UsersController extends Controller
            $users->update([
                 'name' => $request->input('name'),
                 'email' => $request->input('email'),
-                'password' => md5($request->input('password')),
+                'password' => bcrypt($request->input('password')),
             ]);
         } else {
             $validatedData = $request->validate([
@@ -43,7 +44,7 @@ class UsersController extends Controller
                 [
                     'name' => $validatedData['name'],
                     'email' => $validatedData['email'],
-                    'password' => $validatedData['password'],
+                    'password' =>bcrypt($validatedData['password']),
                 ]
             );
         }

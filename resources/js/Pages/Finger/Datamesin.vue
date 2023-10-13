@@ -176,6 +176,7 @@ export default {
         async loadLazyData() {
             this.loading = true;
             const res = await getdatamesin({page : this.lazyParams.page, search: this.search})
+            console.log(res);
 
             this.dataMesin = res.data.data;
             this.loading = false;
