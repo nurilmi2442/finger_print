@@ -20348,57 +20348,6 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
           }
         }, _callee2);
       }))();
-    },
-    synchronize: function synchronize() {
-      var _this4 = this;
-
-      return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee3() {
-        var data;
-        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee3$(_context3) {
-          while (1) {
-            switch (_context3.prev = _context3.next) {
-              case 0:
-                if (!(!_this4.form.nama && !_this4.form.ip)) {
-                  _context3.next = 3;
-                  break;
-                }
-
-                _this4.$toast.add({
-                  severity: 'error',
-                  summary: 'Kesalahan!',
-                  detail: 'Pilih Site dan IP sebelum melanjutkan.',
-                  life: 3000
-                });
-
-                return _context3.abrupt("return");
-
-              case 3:
-                _this4.loading = true;
-                _context3.next = 6;
-                return (0,_Api_datapresensi_api__WEBPACK_IMPORTED_MODULE_10__.getdatapresensi)(_this4.form);
-
-              case 6:
-                data = _context3.sent;
-                _context3.next = 9;
-                return _this4.proses();
-
-              case 9:
-                _this4.loading = false;
-
-                _this4.$toast.add({
-                  severity: 'success',
-                  summary: 'Informasi!',
-                  detail: 'Berhasil Di Tampilkan',
-                  life: 3000
-                });
-
-              case 11:
-              case "end":
-                return _context3.stop();
-            }
-          }
-        }, _callee3);
-      }))();
     }
   },
   mounted: function mounted() {
@@ -27061,9 +27010,9 @@ var _hoisted_1 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("
   }
 }, [/*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("b", {
   style: {
-    "color": "#007bff"
+    "color": "#00336a"
   }
-}, "FINGER"), /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)(" PRINT")]), /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("small", null, [/*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("b", null, "Made By Tim Divisi Teknologi Informasi")])])], -1
+}, "IMS"), /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)(" ATTENDANCE")]), /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("small", null, [/*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("b", null, "Made By Tim Divisi Teknologi Informasi")])])], -1
 /* HOISTED */
 );
 
@@ -28487,13 +28436,10 @@ var _hoisted_9 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("
 );
 
 var _hoisted_10 = {
-  "class": "p-mb-4"
-};
-var _hoisted_11 = {
   "class": "card"
 };
 
-var _hoisted_12 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)(" No records found ");
+var _hoisted_11 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)(" No records found ");
 
 function render(_ctx, _cache, $props, $setup, $data, $options) {
   var _component_ConfirmDialog = (0,vue__WEBPACK_IMPORTED_MODULE_0__.resolveComponent)("ConfirmDialog");
@@ -28584,18 +28530,7 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
         onClick: $options.proses
       }, null, 8
       /* PROPS */
-      , ["onClick"])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("div", _hoisted_10, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_Button, {
-        label: "Synchronize",
-        style: {
-          "display": "block",
-          "margin-top": "3.2rem",
-          "margin-right": "10px"
-        },
-        "class": "p-button-sm p-button-sm",
-        onClick: $options.synchronize
-      }, null, 8
-      /* PROPS */
-      , ["onClick"])])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("div", _hoisted_11, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_DataTable, {
+      , ["onClick"])])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("div", _hoisted_10, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_DataTable, {
         value: $data.dataFingerDB,
         paginator: "",
         rows: 20,
@@ -28607,21 +28542,18 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
         tableStyle: "min-width: 50rem"
       }, {
         empty: (0,vue__WEBPACK_IMPORTED_MODULE_0__.withCtx)(function () {
-          return [_hoisted_12];
+          return [_hoisted_11];
         }),
         "default": (0,vue__WEBPACK_IMPORTED_MODULE_0__.withCtx)(function () {
           return [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_Column, {
-            field: "pin",
+            field: "nip",
             header: "NIP"
           }), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_Column, {
-            field: "datetime",
-            header: "DateTime"
+            field: "date",
+            header: "Date"
           }), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_Column, {
-            field: "verified",
-            header: "Verified"
-          }), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_Column, {
-            field: "status",
-            header: "Status"
+            field: "ip_frontend",
+            header: "Machine"
           })];
         }),
         _: 1
@@ -31290,7 +31222,7 @@ var _hoisted_9 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("
   style: {
     "color": "#007bff"
   }
-}, "FINGER"), /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)("PRINT")])], -1
+}, "IMS "), /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)("ATTENDANCE")])], -1
 /* HOISTED */
 );
 
@@ -31616,7 +31548,7 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
 
   }, 8
   /* PROPS */
-  , ["href"])])) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" <li class=\"nav-item\">\r\n        <a class=\"nav-link\" data-widget=\"fullscreen\" href=\"#\" role=\"button\">\r\n          <i class=\"fas fa-expand-arrows-alt\"></i>\r\n        </a>\r\n      </li> ")])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" /.navbar "), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" Main Sidebar Container "), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("aside", _hoisted_8, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" Brand Logo "), _hoisted_9, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" Sidebar "), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("div", _hoisted_10, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" Sidebar Menu "), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("nav", _hoisted_11, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("ul", _hoisted_12, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" Add icons to the links using the .nav-icon class\r\n               with font-awesome or any other icon font library "), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("li", _hoisted_13, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("a", {
+  , ["href"])])) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" <li class=\"nav-item\">\n        <a class=\"nav-link\" data-widget=\"fullscreen\" href=\"#\" role=\"button\">\n          <i class=\"fas fa-expand-arrows-alt\"></i>\n        </a>\n      </li> ")])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" /.navbar "), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" Main Sidebar Container "), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("aside", _hoisted_8, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" Brand Logo "), _hoisted_9, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" Sidebar "), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("div", _hoisted_10, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" Sidebar Menu "), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("nav", _hoisted_11, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("ul", _hoisted_12, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" Add icons to the links using the .nav-icon class\n               with font-awesome or any other icon font library "), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("li", _hoisted_13, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("a", {
     href: _ctx.$route('so.index'),
     "class": ["nav-link", _ctx.$route().current('so.index') ? 'active' : '']
   }, [_hoisted_14, _hoisted_15], 10
@@ -31703,7 +31635,7 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
   /* CLASS, PROPS */
   , ["href"])])])], 2
   /* CLASS */
-  ), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" <li class=\"nav-item\" :class=\"$route().current().indexOf('transaksi') >= 0 ? 'menu-open' : ''\">\r\n            <a href=\"#\" class=\"nav-link\" :class=\"$route().current().indexOf('transaksi') >= 0 ? 'active' : ''\">\r\n              <i class=\"nav-icon fas fa-exchange-alt\"></i>\r\n              <p>\r\n                Transaksi\r\n                <i class=\"right fas fa-angle-left\"></i>\r\n              </p>\r\n            </a>\r\n            <ul class=\"nav nav-treeview\">\r\n              <li class=\"nav-item\">\r\n                <a :href=\"$route('transaksi.input_material')\" class=\"nav-link\" :class=\"$route().current('transaksi.input_material') ? 'active' : ''\">\r\n                  <i class=\"far fa-circle nav-icon\"></i>\r\n                  <p>Input Material</p>\r\n                </a>\r\n              </li>\r\n              <li class=\"nav-item\">\r\n                <a :href=\"$route('transaksi.lpbg')\" class=\"nav-link\" :class=\"$route().current('transaksi.lpbg') ? 'active' : ''\">\r\n                  <i class=\"far fa-circle nav-icon\"></i>\r\n                  <p>Input LPBG / SJN</p>\r\n                </a>\r\n              </li>\r\n              <li class=\"nav-item\">\r\n                 <a :href=\"$route('transaksi.sttp')\" class=\"nav-link\" :class=\"$route().current('transaksi.sttp') ? 'active' : ''\">\r\n                  <i class=\"far fa-circle nav-icon\"></i>\r\n                  <p>Create STTPP</p>\r\n                </a>\r\n              </li>\r\n            </ul>\r\n          </li> "), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" <li class=\"nav-item\" :class=\"$route().current().indexOf('cek') >= 0 ? 'menu-open' : ''\"> "), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" <a href=\"#\" class=\"nav-link\" :class=\"$route().current().indexOf('cek') >= 0 ? 'active' : ''\"> "), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" <i class=\"fas fa-check\"></i> "), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" <p> "), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" Pengecekan "), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" <i class=\"right fas fa-angle-left\"></i> "), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" </p> "), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" </a> "), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" <ul class=\"nav nav-treeview\">\r\n              <li class=\"nav-item\">\r\n                <a :href=\"$route('cek.ceklpbg')\" class=\"nav-link\" :class=\"$route().current('cek.ceklpbg') ? 'active' : ''\">\r\n                  <i class=\"far fa-circle nav-icon\"></i>\r\n                  <p>Cek Stok Barang</p>\r\n                </a>\r\n              </li>\r\n              <li class=\"nav-item\">\r\n                 <a :href=\"$route('cek.ceksttp')\" class=\"nav-link\" :class=\"$route().current('cek.ceksttp') ? 'active' : ''\">\r\n                  <i class=\"far fa-circle nav-icon\"></i>\r\n                  <p>Cek STTPP</p>\r\n                </a>\r\n              </li>\r\n            </ul> "), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" </li> "), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" <li class=\"nav-item\" :class=\"$route().current().indexOf('master') >= 0 ? 'menu-open' : ''\"> "), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" <a href=\"#\" class=\"nav-link\" :class=\"$route().current().indexOf('master') >= 0 ? 'active' : ''\"> "), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" <i class=\"nav-icon fas fa-database\"></i>\r\n              <p>\r\n                Data Master\r\n                <i class=\"right fas fa-angle-left\"></i>\r\n              </p> "), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" </a> "), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" <ul class=\"nav nav-treeview\"> "), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" <li class=\"nav-item\"> "), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" <a :href=\"$route('master.PageProyek')\" class=\"nav-link\" :class=\"$route().current('master.PageProyek') ? 'active' : ''\"> "), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" <i class=\"far fa-circle nav-icon\"></i> "), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" <p>Proyek</p> "), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" </a> "), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" </li> "), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" <li class=\"nav-item\">\r\n                <a :href=\"$route('master.PageMaster')\" class=\"nav-link\" :class=\"$route().current('master.PageMaster') ? 'active' : ''\">\r\n                  <i class=\"far fa-circle nav-icon\"></i>\r\n                  <p>Lokasi</p>\r\n                </a>\r\n              </li> "), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" <li class=\"nav-item\">\r\n                 <a :href=\"$route('master.PageGedung')\" class=\"nav-link\" :class=\"$route().current('master.PageGedung') ? 'active' : ''\">\r\n                  <i class=\"far fa-circle nav-icon\"></i>\r\n                  <p>Gedung</p>\r\n                </a>\r\n              </li> "), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("li", _hoisted_58, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("a", {
+  ), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" <li class=\"nav-item\" :class=\"$route().current().indexOf('transaksi') >= 0 ? 'menu-open' : ''\">\n            <a href=\"#\" class=\"nav-link\" :class=\"$route().current().indexOf('transaksi') >= 0 ? 'active' : ''\">\n              <i class=\"nav-icon fas fa-exchange-alt\"></i>\n              <p>\n                Transaksi\n                <i class=\"right fas fa-angle-left\"></i>\n              </p>\n            </a>\n            <ul class=\"nav nav-treeview\">\n              <li class=\"nav-item\">\n                <a :href=\"$route('transaksi.input_material')\" class=\"nav-link\" :class=\"$route().current('transaksi.input_material') ? 'active' : ''\">\n                  <i class=\"far fa-circle nav-icon\"></i>\n                  <p>Input Material</p>\n                </a>\n              </li>\n              <li class=\"nav-item\">\n                <a :href=\"$route('transaksi.lpbg')\" class=\"nav-link\" :class=\"$route().current('transaksi.lpbg') ? 'active' : ''\">\n                  <i class=\"far fa-circle nav-icon\"></i>\n                  <p>Input LPBG / SJN</p>\n                </a>\n              </li>\n              <li class=\"nav-item\">\n                 <a :href=\"$route('transaksi.sttp')\" class=\"nav-link\" :class=\"$route().current('transaksi.sttp') ? 'active' : ''\">\n                  <i class=\"far fa-circle nav-icon\"></i>\n                  <p>Create STTPP</p>\n                </a>\n              </li>\n            </ul>\n          </li> "), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" <li class=\"nav-item\" :class=\"$route().current().indexOf('cek') >= 0 ? 'menu-open' : ''\"> "), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" <a href=\"#\" class=\"nav-link\" :class=\"$route().current().indexOf('cek') >= 0 ? 'active' : ''\"> "), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" <i class=\"fas fa-check\"></i> "), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" <p> "), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" Pengecekan "), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" <i class=\"right fas fa-angle-left\"></i> "), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" </p> "), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" </a> "), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" <ul class=\"nav nav-treeview\">\n              <li class=\"nav-item\">\n                <a :href=\"$route('cek.ceklpbg')\" class=\"nav-link\" :class=\"$route().current('cek.ceklpbg') ? 'active' : ''\">\n                  <i class=\"far fa-circle nav-icon\"></i>\n                  <p>Cek Stok Barang</p>\n                </a>\n              </li>\n              <li class=\"nav-item\">\n                 <a :href=\"$route('cek.ceksttp')\" class=\"nav-link\" :class=\"$route().current('cek.ceksttp') ? 'active' : ''\">\n                  <i class=\"far fa-circle nav-icon\"></i>\n                  <p>Cek STTPP</p>\n                </a>\n              </li>\n            </ul> "), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" </li> "), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" <li class=\"nav-item\" :class=\"$route().current().indexOf('master') >= 0 ? 'menu-open' : ''\"> "), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" <a href=\"#\" class=\"nav-link\" :class=\"$route().current().indexOf('master') >= 0 ? 'active' : ''\"> "), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" <i class=\"nav-icon fas fa-database\"></i>\n              <p>\n                Data Master\n                <i class=\"right fas fa-angle-left\"></i>\n              </p> "), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" </a> "), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" <ul class=\"nav nav-treeview\"> "), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" <li class=\"nav-item\"> "), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" <a :href=\"$route('master.PageProyek')\" class=\"nav-link\" :class=\"$route().current('master.PageProyek') ? 'active' : ''\"> "), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" <i class=\"far fa-circle nav-icon\"></i> "), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" <p>Proyek</p> "), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" </a> "), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" </li> "), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" <li class=\"nav-item\">\n                <a :href=\"$route('master.PageMaster')\" class=\"nav-link\" :class=\"$route().current('master.PageMaster') ? 'active' : ''\">\n                  <i class=\"far fa-circle nav-icon\"></i>\n                  <p>Lokasi</p>\n                </a>\n              </li> "), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" <li class=\"nav-item\">\n                 <a :href=\"$route('master.PageGedung')\" class=\"nav-link\" :class=\"$route().current('master.PageGedung') ? 'active' : ''\">\n                  <i class=\"far fa-circle nav-icon\"></i>\n                  <p>Gedung</p>\n                </a>\n              </li> "), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("li", _hoisted_58, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("a", {
     href: _ctx.$route('master.PageUser'),
     "class": ["nav-link", _ctx.$route().current('master.PageUser') ? 'active' : '']
   }, [_hoisted_59, _hoisted_60], 10
@@ -32864,7 +32796,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, "\nform[data-v-a2ac2cea] {\r\n    margin-top: 20px;\n}\n.center-form[data-v-a2ac2cea] {\r\n    display: flex;\r\n    flex-direction: column;\r\n    align-items: center;\r\n    justify-content: center;\r\n    height: 70vh;\r\n    max-width: 80%;\n}\r\n\r\n  /* Add custom styles for the background image */\r\n  /* .bg-image {\r\n    background-image: url('images/bg.jpg');\r\n    background-size: cover;\r\n    background-repeat: no-repeat;\r\n    background-position: center center;\r\n    min-height: 100%;\r\n    border-radius: 15px;\r\n  } */\r\n  ", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, "\nform[data-v-a2ac2cea] {\n    margin-top: 20px;\n}\n.center-form[data-v-a2ac2cea] {\n    display: flex;\n    flex-direction: column;\n    align-items: center;\n    justify-content: center;\n    height: 70vh;\n    max-width: 80%;\n}\n\n  /* Add custom styles for the background image */\n  /* .bg-image {\n    background-image: url('images/bg.jpg');\n    background-size: cover;\n    background-repeat: no-repeat;\n    background-position: center center;\n    min-height: 100%;\n    border-radius: 15px;\n  } */\n  ", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
@@ -32960,7 +32892,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, "\n.action-btn[data-v-f311f62a] {\r\n        margin-left: 12px;\r\n        font-size: 13px;\n}\n.article[data-v-f311f62a] {\r\n        margin-top: 20px;\n}\n[data-v-f311f62a] .so-contract {\r\n    background-color: rgba(0,0,0,.15) !important;\n}\r\n\r\n", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, "\n.action-btn[data-v-f311f62a] {\n        margin-left: 12px;\n        font-size: 13px;\n}\n.article[data-v-f311f62a] {\n        margin-top: 20px;\n}\n[data-v-f311f62a] .so-contract {\n    background-color: rgba(0,0,0,.15) !important;\n}\n\n", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
@@ -33296,7 +33228,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, "\n.action-btn[data-v-d24a58a6] {\r\n        margin-left: 12px;\r\n        font-size: 13px;\n}\n.article[data-v-d24a58a6] {\r\n        margin-top: 20px;\n}\n[data-v-d24a58a6] .so-contract {\r\n    background-color: rgba(0,0,0,.15) !important;\n}\r\n\r\n", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, "\n.action-btn[data-v-d24a58a6] {\n        margin-left: 12px;\n        font-size: 13px;\n}\n.article[data-v-d24a58a6] {\n        margin-top: 20px;\n}\n[data-v-d24a58a6] .so-contract {\n    background-color: rgba(0,0,0,.15) !important;\n}\n\n", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 

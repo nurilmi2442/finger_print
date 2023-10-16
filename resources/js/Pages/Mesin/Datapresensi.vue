@@ -29,18 +29,14 @@
         <div>
                 <Button label="Process" style="display: block; margin-top: 3.2rem; margin-right: 10px;" class="p-button-sm p-button-sm" @click="proses"></Button>
         </div>
-        <div class="p-mb-4">
-                <Button label="Synchronize" style="display: block; margin-top: 3.2rem; margin-right: 10px;" class="p-button-sm p-button-sm" @click="synchronize"></Button>
-        </div>
     </div>
 
 
         <div class="card">
             <DataTable :value="dataFingerDB" paginator :rows="20" :rowsPerPageOptions="[5, 10, 20, 50]" :loading="loading" @page="onPage($event)" tableStyle="min-width: 50rem">
-                <Column field="pin" header="NIP"></Column>
-                <Column field="datetime" header="DateTime"></Column>
-                <Column field="verified" header="Verified"></Column>
-                <Column field="status" header="Status"></Column>
+                <Column field="nip" header="NIP"></Column>
+                <Column field="date" header="Date"></Column>
+                <Column field="ip_frontend" header="Machine"></Column>
                 <template #empty>
                     No records found
                 </template>
@@ -149,28 +145,6 @@ export default {
           const data = await  getfingerdatabase(this.form);
           this.dataFingerDB= data.data.datafingerdb;
           this.loading = false;
-        },
-        async synchronize(){
-          if (!this.form.nama && !this.form.ip){
-            this.$toast.add({
-                severity: 'error',
-                summary: 'Kesalahan!',
-                detail: 'Pilih Site dan IP sebelum melanjutkan.',
-                life: 3000
-            });
-            return;
-          }
-          this.loading = true;
-          const data = await  getdatapresensi(this.form);
-          await this.proses();
-          this.loading = false;
-          this.$toast.add({
-                severity: 'success',
-                summary: 'Informasi!',
-                detail: 'Berhasil Di Tampilkan',
-                life: 3000
-          });
-
         },
     },
 

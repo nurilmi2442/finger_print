@@ -30,7 +30,7 @@
   <aside class="main-sidebar sidebar-dark-primary elevation-4" style="position: fixed;">
     <!-- Brand Logo -->
     <div class="brand-link text-center">
-      <span class="brand-text font-weight-light text" style="font-size: 25px;"><b style="color: #007bff;">FINGER</b>PRINT</span>
+      <span class="brand-text font-weight-light text" style="font-size: 25px;"><b style="color: #007bff;">IMS </b>ATTENDANCE</span>
     </div>
 
     <!-- Sidebar -->
@@ -82,7 +82,7 @@
               </p>
             </a>
             <ul class="nav nav-treeview">
-             
+
               <li class="nav-item">
                 <a :href="$route('finger.pageDepartemen')" class="nav-link" :class="$route().current('finger.pageDepartemen') ? 'active' : ''">
                 <i class="fa-solid fa-users-line" style="padding-right: 5px; padding-left: 15px;" ></i>

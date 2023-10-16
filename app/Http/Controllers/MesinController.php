@@ -3,7 +3,6 @@
 namespace App\Http\Controllers;
 
 use App\Models\Datamesin;
-use App\Models\Datapresensi;
 use App\Models\Sites;
 
 use Illuminate\Support\Facades\DB;
@@ -12,16 +11,16 @@ use Inertia\Inertia;
 
 class MesinController extends Controller
 {
-    public function cek($pin, $datetime){
+    public function cek($pin, $date){
 
         $data = [
             'pin' => $pin,
-            'datetime' => $datetime,
+            'date' => $date,
         ];
 
-        $cekdata = DB::table('mesin_finger')
+        $cekdata = DB::table('att_log')
         ->where('pin', $data['pin'])
-        ->where('datetime', $data['datetime'])
+        ->where('date', $data['date'])
         ->first();
 
         if (!$cekdata) {
@@ -47,9 +46,8 @@ class MesinController extends Controller
 
         return Inertia::render('Mesin/Datapresensi', [
             'datamesin' => $datamesin,
-            'site' => $datasite
+            'site' => $datasite,
         ]);
-
 
     }
 
@@ -86,26 +84,22 @@ class MesinController extends Controller
         for ($a = 0; $a < count($buffer); $a++) {
             $data = $this->Parse_Data($buffer[$a], "<Row>", "</Row>");
             $PIN = $this->Parse_Data($data, "<PIN>", "</PIN>");
-            $DateTime = $this->Parse_Data($data, "<DateTime>", "</DateTime>");
-            $Verified = $this->Parse_Data($data, "<Verified>", "</Verified>");
-            $Status = $this->Parse_Data($data, "<Status>", "</Status>");
+            $date = $this->Parse_Data($data, "<date>", "</date>");
 
             if ($PIN !=""){
 
-                $cekdata = $this->cek($PIN, $DateTime);
+                $cekdata = $this->cek($PIN, $date);
                 if ($cekdata){
                     $finger[] = [
                         'pin'=>$PIN,
                         'id_mesin'=>$request->ip,
-                        'datetime'=>$DateTime,
-                        'verified'=> $Verified,
-                        'status'=>$Status
+                        'date'=>$date,
                     ];
                 }
 
             }
         }
-        DB::table('mesin_finger')->insert($finger);
+        DB::table('att_log')->insert($finger);
 
         return response()->json([
             'finger' => $finger,
@@ -114,7 +108,15 @@ class MesinController extends Controller
 
     public function GetFingerdatabase(Request $request)
     {
-        $datafingerdb = DB::table('mesin_finger');
+        $datafingerdb = DB::table('datamesin')
+        ->leftJoin('att_log', 'datamesin.id', '=', 'att_log.id_mesin')
+        ->select('datamesin.ip as ip_frontend', 'att_log.id_mesin', 'att_log.nip', 'att_log.date');
+        // $datafingerdb = DB::table('datamesin')
+        // ->leftJoin('att_log', 'datamesin.ip', '=', 'att_log.id_mesin')
+        // ->select('datamesin.ip as ip_frontend', 'datamesin.id')
+        // ->groupBy('datamesin.ip', 'datamesin.id');
+
+
         if($request->ip){
             $datafingerdb=$datafingerdb->where('id_mesin', $request->ip);
         }

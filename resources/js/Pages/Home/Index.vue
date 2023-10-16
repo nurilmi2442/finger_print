@@ -3,7 +3,7 @@
 	<div>
         <div style="background-color:white;height: 200px;width: 100%;display: flex;justify-content: center;align-items: center;flex-direction: column;margin-top: 10rem">
             <label for="">Selamat Datang</label>
-            <span class="brand-text font-weight-light text" style="font-size: 75px;"><b style="color: #007bff;">FINGER</b> PRINT</span>
+            <span class="brand-text font-weight-light text" style="font-size: 75px;"><b style="color: #00336a;">IMS</b> ATTENDANCE</span>
             <small><b>Made By Tim Divisi Teknologi Informasi</b> </small>
         </div>
     </div>
