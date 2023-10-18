@@ -27,7 +27,7 @@ return [
     */
 
     'env' => env('APP_ENV', 'production'),
-    'INTEGRATE_LOG_ATT' => true,
+    'INTEGRATE_LOG_ATT' => false,
 
     /*
     |--------------------------------------------------------------------------

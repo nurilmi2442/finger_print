@@ -8,7 +8,7 @@ use Illuminate\Support\Facades\DB;
 use Carbon\Carbon;
 class iclockController extends Controller
 {
-        /*  
+        /*
     * Handle the incoming request.
     *
     * @param  \Illuminate\Http\Request  $request
@@ -16,7 +16,7 @@ class iclockController extends Controller
     */
    public function __invoke(Request $request)
    {
-       
+
    }
 
     // handshake
@@ -40,18 +40,18 @@ class iclockController extends Controller
             $webhook = new WebhookTest;
             $requestData = $webhook->getRequest();
             $msg = $e->getMessage();
-            
+
             $c = $webhook->log($msg, 'content');
             return "ERROR";
         }
-        
+
     }
     // implementasi https://docs.nufaza.com/docs/devices/zkteco_attendance/push_protocol/
     // setting timezone
 
     // request absensi
     public function receiveRecords(Request $request)
-    {    
+    {
     // cek validasi device fingerprint berdasarkan serial number
 
     try{
@@ -78,7 +78,7 @@ class iclockController extends Controller
                 case 'ATTLOG':
                     $this->AttLog($arr, $cek);
                     break;
-                
+
                 default:
                     # code...
                     break;
@@ -90,10 +90,10 @@ class iclockController extends Controller
             $webhook = new WebhookTest;
             $requestData = $webhook->getRequest();
             $msg = $e->getMessage();
-            
+
             $c = $webhook->log($msg, 'content');
             return "ERROR";
-    
+
 
     }
 
@@ -106,7 +106,7 @@ protected function AttLog($arr, $mesin){
         foreach($arr as $rey){
             // $jam = $req[1];
             $req = preg_split('/\\t\\n|\\t|,|\\n/', $rey);
-            
+
             if(!empty(trim($req[0])) ){
                 $nip = trim($req[0]);
                 $tgl = $req[1];
@@ -116,7 +116,7 @@ protected function AttLog($arr, $mesin){
                         'id_mesin'=>$mesin->id,
 
                     ];
-              
+
                 $res = DB::table('att_log')->insert($data);
 
                 if(config('app.INTEGRATE_LOG_ATT')){
@@ -138,16 +138,23 @@ protected function AttLog($arr, $mesin){
 
                     DB::connection('mysql2')->table('tblattendancelog')->insert($attLog);
                 }
-                
+
             }
         }
     }
     catch(\Exception $e){
-        throw new \Exception($e->getMessage());    
+        throw new \Exception($e->getMessage());
     }
-    
-   
+
+
 }
-   
+
+public function getrequest(Request $request)
+{
+    $data = json_encode($request->all());
+    $webhook = new WebhookTest;
+    $c = $webhook->log(print_r($data,true), 'content');
+}
+
 
 }

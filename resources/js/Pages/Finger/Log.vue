@@ -1,21 +1,9 @@
 <template>
-    <layout title="Data Presensi">
+    <layout title="LOG">
     <ConfirmDialog></ConfirmDialog>
     <Toast position="top-center" />
 
     <div class="row" style="margin-bottom: 10px;">
-        <div class="col">
-            <label for="SITE" class="control-label"
-                style="display: block; margin-top: 1rem;">Site:</label>
-            <Dropdown v-model="form.site" :options="dataSites" @change="filterDatasite"
-                optionLabel="nama" optionValue="id" placeholder="Select a site" style="width: 100%!important" :filter="true"  filterPlaceholder="Cari..." />
-        </div>
-        <div class="col">
-            <label for="IP Mesin" class="control-label"
-                style="display: block; margin-top: 1rem;">IP Mesin :</label>
-            <Dropdown v-model="form.ip" :options="dataMesin"
-                optionLabel="ip" optionValue="id" placeholder="Select a ip address" style="width: 100%!important" :filter="true"  filterPlaceholder="Cari..." />
-        </div>
         <div class="col">
             <label for="tanggal" class="control-label"
                 style="display: block; margin-top: 1rem;">Start date :</label>
@@ -31,14 +19,16 @@
         </div>
     </div>
 
-        <div class="card">
-            <DataTable :value="dataFingerDB.data" :lazy="true" :paginator="true" :rows="dataFingerDB.per_page" ref="dt"
-            :totalRecords="dataFingerDB.total" :loading="loading" @page="onPage($event)"
+            <DataTable :value="Log.data" :lazy="true" :paginator="true" :rows="Log.per_page" ref="dt"
+            :totalRecords="Log.total" :loading="loading" @page="onPage($event)"
                 paginatorTemplate="FirstPageLink PrevPageLink PageLinks NextPageLink LastPageLink CurrentPageReport"
                 currentPageReportTemplate="Showing {first} to {last} of {totalRecords}" responsiveLayout="scroll">
-                <Column field="nip" header="NIP"></Column>
+                <Column field="sn" header="Serial Number"></Column>
+                <Column field="ip_mesin" header="IP"></Column>
+                <Column field="site" header="Site"></Column>
+                <Column field="data" header="Data"></Column>
                 <Column field="date" header="Date"></Column>
-                <Column field="ip_frontend" header="Machine"></Column>
+                <Column field="url" header="URL"></Column>
                 <template #empty>
                     No records found
                 </template>
@@ -51,8 +41,8 @@
                     </span>
                 </div>
                 </template>
+
             </DataTable>
-        </div>
     </layout>
 </template>
 
@@ -66,11 +56,11 @@ import Toolbar from 'primevue/toolbar';
 import RadioButton from 'primevue/radiobutton';
 import InputText from 'primevue/inputtext';
 import ColumnGroup from 'primevue/columngroup';
-import {getdatapresensi, getfingerdatabase} from '../../Api/datapresensi.api';
+import {getlog} from '../../Api/log.api';
 
 
 export default {
-    name: "Data Presensi",
+    name: "Log",
     components: {
         ErrorsAndMessages,
         Layout,
@@ -87,35 +77,18 @@ export default {
         return {
             loading:false,
             search:'',
-            start_date:'',
-            end_date:'',
             display:false,
             filters: {},
-            dataMesin:[],
-            dataSites:[],
-            dataMesinAll:[],
-            dataFingerDB:{
-                data:[]
-            },
+            Log:[],
             modalTitle:null,
             submitted: false,
             form:{
-                id:null,
-                ip:null,
-                nama:null,
-                id_sites:null,
-                site:null,
                 start_date:null,
                 end_date:null,
                 search:null,
 
             },
             initform:{
-                id:null,
-                ip:null,
-                nama:null,
-                id_sites:null,
-                site:null,
                 start_date:null,
                 end_date:null,
                 search:null,
@@ -133,43 +106,27 @@ export default {
     methods:{
         async loadLazyData() {
             this.loading = true;
-            this.proses();
+            const res = await getlog({page : this.lazyParams.page})
+            console.log(res);
 
+            this.Log = res.data.log;
+            this.loading = false;
         },
         onPage(event) {
             this.lazyParams.page = event.page + 1;
             this.loadLazyData();
         },
-        filterDatasite(){
-            const filter = this.dataMesinAll.filter(x=>{
-                return x.id_sites == this.form.site;
-            })
-
-            this.dataMesin = filter;
-            console.log(filter);
-        },
         async proses(){
-            if (!this.form.nama && !this.form.ip){
-            this.$toast.add({
-                severity: 'error',
-                summary: 'Kesalahan!',
-                detail: 'Pilih Site dan IP sebelum melanjutkan.',
-                life: 3000
-            });
-            return;
-          }
           this.loading = true;
-          const data = await  getfingerdatabase({...this.form,...this.lazyParams});
-          this.dataFingerDB= data.data.datafingerdb;
+          const data = await  getlog({...this.form,...this.lazyParams});
+          this.Log= data.data.log;
           this.loading = false;
         },
+
     },
 
     mounted(){
-        this.dataSites = this.$page.props.site;
-        this.dataMesin = this.$page.props.datamesin;
-        this.dataMesinAll = this.dataMesin;
-
+        this.Log = this.$page.props.log;
     }
 
 };

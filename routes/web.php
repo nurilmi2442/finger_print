@@ -17,7 +17,8 @@ use App\Http\Controllers\{
     FingerController,
     MesinController,
     UsersController,
-    IclockController
+    IclockController,
+    LogController
 };
 use Illuminate\Support\Facades\Route;
 
@@ -38,7 +39,7 @@ use Illuminate\Support\Facades\Route;
 Route::get('/iclock/cdata', [IclockController::class, 'handshake']);
 // request dari device
 Route::post('/iclock/cdata', [IclockController::class, 'receiveRecords']);
-
+Route::get('/iclock/getrequest', [IclockController::class, 'getrequest']);
 
 
 
@@ -132,6 +133,10 @@ Route::prefix('device')->name('device.')->group(function () {
     Route::get('/get-datamesin', [FingerController::class, 'pageDatamesin'])->name('getdatamesin');
     Route::post('/simpan-datamesin', [FingerController::class, 'simpanDatamesin'])->name('simpandatamesin');
     Route::post('/del-datamesin', [FingerController::class, 'hapusDatamesin'])->name('hapusdatamesin');
+
+    Route::get('/log', [LogController::class, 'pageLog'])->name('pageLog');
+    Route::get('/get-log', [LogController::class, 'pageLog'])->name('getlog');
+
 });
 
 Route::prefix('finger')->name('finger.')->group(function () {
