@@ -98,6 +98,9 @@
                 <Column field="nama" header="Site"></Column>
                 <Column field="lokasi" header="Location"></Column>
                 <Column field="last_updated" header="Last Updated"></Column>
+                <Column field="jumlah_log" header="Jumlah Log"></Column>
+                <Column field="jumlah_user" header="Jumlah User"></Column>
+                <Column field="jumlah_finger" header="Jumlah Finger"></Column>
                 <Column field="">
                     <template #body="slotProps">
                         <Button icon="pi pi-pencil" class="p-button-rounded p-button-success p-mr-2" @click="onEdit(slotProps.data)" style="margin-right: 10px;"/>

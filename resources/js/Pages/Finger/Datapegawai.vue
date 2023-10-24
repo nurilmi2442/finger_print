@@ -1,5 +1,5 @@
 <template>
-    <layout title="Data Pegawai">
+    <layout title="Employee Data">
     <ConfirmDialog></ConfirmDialog>
     <Toast position="top-center" />
 
@@ -23,8 +23,6 @@
             <Button label="Batal" icon="pi pi-times" class="p-button-text" @click="display = false"></Button>
             <Button label="Simpan" icon="pi pi-check" autofocus @click="simpan"></Button>
         </template>
-
-
     </Dialog>
 
         <div class="card">

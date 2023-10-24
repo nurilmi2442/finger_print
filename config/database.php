@@ -64,6 +64,14 @@ return [
             'options'   => [
                 \PDO::ATTR_EMULATE_PREPARES => true
             ]
+        ],
+        'mysql_eoffice' => [
+            'driver'    => env('DB_CONNECTION_SECONDDB'),
+            'host'      => env('DB_HOST_SECONDDB'),
+            'port'      => env('DB_PORT_SECONDDB'),
+            'database'  => env('DB_DATABASE_SECONDDB'),
+            'username'  => env('DB_USERNAME_SECONDDB'),
+            'password'  => env('DB_PASSWORD_SECONDDB'),
 
         ],
          'mysql2' => [

@@ -18,7 +18,8 @@ use App\Http\Controllers\{
     MesinController,
     UsersController,
     IclockController,
-    LogController
+    LogController,
+    WorkingSchController
 };
 use Illuminate\Support\Facades\Route;
 
@@ -161,8 +162,10 @@ Route::prefix('finger')->name('finger.')->group(function () {
     Route::post('/del-groupshift', [FingerController::class, 'hapusGroupshift'])->name('hapusGroupshift');
 
     Route::get('/schedulemaster', [FingerController::class, 'pageSchedulemaster'])->name('pageSchedulemaster');
-    Route::post('/del-schedulemaster', [FingerController::class, 'hapusSchedulemaster'])->name('hapusSchedulemaster');
     Route::get('/get-schedulemaster', [FingerController::class, 'pageSchedulemaster'])->name('getSchedulemaster');
+    Route::get('/get-pegawai', [FingerController::class, 'GetPegawai'])->name('GetPegawai');
+    Route::post('/simpan-workingsch', [FingerController::class, 'simpanData'])->name('GetPegawai');
+
 
     Route::get('/users', [UsersController::class, 'pageUsers'])->name('pageUsers');
     Route::get('/get-users', [UsersController::class, 'pageUsers'])->name('getUsers');

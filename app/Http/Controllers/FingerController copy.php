@@ -9,9 +9,6 @@ use App\Models\Datashift;
 use App\Models\Groupshift;
 use App\Models\Datapegawai;
 use App\Models\Schedulemaster;
-use App\Models\Masterunit;
-use App\Models\Pegawai;
-use App\Models\Workingsch;
 
 use App\Models\Datashift as ModelsDatashift;
 use Illuminate\Database\Eloquent\Model;
@@ -111,12 +108,11 @@ class FingerController extends Controller
 
         $title = 'datamesin';
 
-        $datamesin = Datamesin::select('jumlah_log', 'jumlah_user', 'jumlah_finger' ,'datamesin.id', 'ip', 'mac_address', 'comkey', 'status', 'id_sites', 'lokasi','sites.nama','datamesin.sn','last_updated')
+        $datamesin = Datamesin::select('datamesin.id', 'ip', 'mac_address', 'comkey', 'status', 'id_sites', 'lokasi','sites.nama','datamesin.sn','last_updated')
         ->selectRaw(" case when status = 1 then 'Aktif' when status = 0 then 'Tidak Aktif' else null end as status_nama ")
         ->leftJoin('sites', 'sites.id', '=', 'datamesin.id_sites');
 
         $sites = Sites::select('id', 'nama')->get();
-
 
         //button search
         if ($search) {
@@ -195,7 +191,6 @@ class FingerController extends Controller
 
         return response()->json(['message' => 'Data proyek berhasil dihapus']);
     }
-
 
 
     //Departemen
@@ -512,78 +507,83 @@ class FingerController extends Controller
 
     public function pageSchedulemaster(Request $request)
     {
-        $project = $request->query('unit');
+        $project = $request->query('nama_pegawai');
+        $shift = $request->query('nama_groupshift');
+        // $search = $request->input('search');
 
+        $title = 'schedulemaster';
+        $schedulemaster = Schedulemaster::select('datapegawai.nama', 'departemen.nama_departemen', 'groupshift.nama_group', 'datashift.nama', '')
+        ->leftJoin('datapegawai', 'datapegawai.id', '=', 'schedulemaster.nama_pegawai')
+        ->leftJoin('departemen', 'departemen.id', '=', 'schedulemaster.nama_departemen')
+        ->leftJoin('datashift', 'datashift.id', '=', 'schedulemaster.nama_shift')
+        ->leftJoin('groupshift', 'groupshift.id', '=', 'schedulemaster.nama_groupshift');
 
-        $masterunit = Masterunit::orderBy('master_unit.tree_id', 'asc')->get();
-        $pegawai = Pegawai::all();
-        $datashift = Datashift::all();
+        $tabel = Departemen::select('nama_departemen', 'dp.nama', 'gs.nama_group')
+        ->leftJoin('datapegawai as dp', 'departemen.id', '=', 'dp.id_departemen')
+        ->leftJoin('groupshift as gs', 'gs.id_pegawai', '=', 'dp.id');
 
+        $tabel2 = Datapegawai::selectRaw('nama,selected_date')
+        ->crossJoin(DB::raw("
+            (
+                select * from
+                    (select adddate('1970-01-01',t4.i*10000 + t3.i*1000 + t2.i*100 + t1.i*10 + t0.i) selected_date from
+                    (select 0 i union select 1 union select 2 union select 3 union select 4 union select 5 union select 6 union select 7 union select 8 union select 9) t0,
+                    (select 0 i union select 1 union select 2 union select 3 union select 4 union select 5 union select 6 union select 7 union select 8 union select 9) t1,
+                    (select 0 i union select 1 union select 2 union select 3 union select 4 union select 5 union select 6 union select 7 union select 8 union select 9) t2,
+                    (select 0 i union select 1 union select 2 union select 3 union select 4 union select 5 union select 6 union select 7 union select 8 union select 9) t3,
+                    (select 0 i union select 1 union select 2 union select 3 union select 4 union select 5 union select 6 union select 7 union select 8 union select 9) t4) v
+                    where selected_date between '2023-09-01' and '2023-09-03'
+            ) as t
+        "))
+        // ->leftJoin('groupshift as gs', 'gs.id_pegawai', '=', 'datapegawai.id')
+        ->orderBy('nama','asc')
+        ->orderBy('selected_date','asc');
+
+        $departemen = Departemen::select('id', 'nama_departemen')->get();
+        $datapegawai = Datapegawai::select('id', 'nama')->get();
+        $datashift = Datashift::select('id', 'nama',)->get();
+        $groupshift = Groupshift::select('id', 'nama_group',)->get();
+
+        if($project){
+            $tabel2 = $tabel2->where('id', '=', $project);
+        }
+
+        if($shift){
+            $tabel2 = $tabel2->where('gs.id', '=', $shift);
+        }
+        $tabel2 = $tabel2 ->paginate(5);
 
         if ($request->ajax()) {
-            return response()->json(['masterunit' => $masterunit, 'message' => 'Berhasil di dapat']);
+            return response()->json([
+                'schedulemaster' => $tabel,
+                'schedulemaster' => $tabel2,
+                'datapegawai' => $datapegawai,
+                'departemen' => $departemen,
+                'datashift' => $datashift,
+                'groupshift' => $groupshift
+            , 'message' => 'Berhasil di dapat']);
         }
 
         return Inertia::render('Finger/Schedulemaster', [
-            'masterunit' => $masterunit,
-            'pegawai' => $pegawai,
-            'datashift' => $datashift
+            'schedulemaster' => $tabel2,
+            'datapegawai' => $datapegawai,
+            'departemen' => $departemen,
+            'datashift' => $datashift,
+            'groupshift' => $groupshift
         ]);
-
     }
 
-    public function GetPegawai(Request $request)
+    public function hapusSchedulemaster(Request $request)
     {
-        $startDate = new \DateTime($request->input('start_date'));
-        $endDate = new \DateTime($request->input('end_date'));
-
-        $select = '';
-
-        for ($date = $startDate; $date <= $endDate; $date->modify('+1 day')) {
-            if ($date->format('Y-m-d') === $request->input('start_date'))
-            {
-                $select.="null '".$date->format('Y-m-d')."'";
-            }
-            else {
-                $select.=", null '".$date->format('Y-m-d')."'";
-            }
-        }
-
-        $pegawai = Pegawai::with(['workingsch' => function($q) use($request){
-            $q->selectRaw("id_pegawai, shift, tanggal")->whereBetween('tanggal', [$request->input('start_date'), $request->input('end_date')]);
-        }])->selectRaw("nama_lengkap, nip, nama_jabatan,id,".$select."")->where('master_unit_id',$request->id)->paginate(15);
-
-        return response()->json([
-            'pegawai' => $pegawai
+        $validatedData = $request->validate([
+            'id' => 'required',
         ]);
-    }
 
+        $schedulemaster= Schedulemaster::findOrFail($validatedData['id']);
 
+        $schedulemaster->delete();
 
-    public function simpanData(Request $request) {
-        $id_pegawai = $request->input('id_pegawai');
-        $tanggal = $request->input('tanggal');
-        $shift = $request->input('shift');
-
-        $workingsch = Workingsch::where('id_pegawai', $id_pegawai)
-            ->where('tanggal', $tanggal)
-            ->first();
-
-        if ($workingsch) {
-            $workingsch->shift = $shift;
-            $workingsch->save();
-        } else {
-            Workingsch::create([
-                'id_pegawai' => $id_pegawai,
-                'tanggal' => $tanggal,
-                'shift' => $shift,
-            ]);
-        }
-
-
-        return response()->json([
-            'message' => 'Berhasil Di simpan'
-        ]);
+        return response()->json(['message' => 'Data proyek berhasil dihapus']);
     }
 
 

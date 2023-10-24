@@ -1,5 +1,5 @@
 <template>
-    <layout title="Data Shift">
+    <layout title="Daily Works">
     <ConfirmDialog></ConfirmDialog>
     <Toast position="top-center" />
 

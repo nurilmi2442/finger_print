@@ -127,6 +127,7 @@ export default {
 
     mounted(){
         this.Log = this.$page.props.log;
+        this.log
     }
 
 };

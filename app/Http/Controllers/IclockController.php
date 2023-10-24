@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Http\Controllers;
+use App\Models\Datamesin;
 
 use Illuminate\Http\Request;
 use App\GlobalClass\WebhookTest;
@@ -151,10 +152,16 @@ protected function AttLog($arr, $mesin){
 
 public function getrequest(Request $request)
 {
-    $data = json_encode($request->all());
+    $sn = $request->SN;
+    $data = json_encode($request->INFO);
+    $data = explode(',', $data);
     $webhook = new WebhookTest;
     $c = $webhook->log(print_r($data,true), 'content');
+
+    $jumlah_log = Datamesin::where('sn', $sn)->first();
+    $jumlah_log->jumlah_user=$data[1];
+    $jumlah_log->jumlah_finger=$data[2];
+    $jumlah_log->jumlah_log=$data[3];
+    $jumlah_log->save();
 }
-
-
 }

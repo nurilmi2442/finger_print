@@ -1,5 +1,5 @@
 <template>
-    <layout title="Group shift">
+    <layout title="Group - Daily Works">
     <ConfirmDialog></ConfirmDialog>
     <Toast position="top-center" />
 

@@ -68,7 +68,7 @@
               <li class="nav-item">
                 <a :href="$route('device.pageDatamesin')" class="nav-link" :class="$route().current('device.pageDatamesin') ? 'active' : ''">
                 <i class="fa-solid fa-laptop" style="padding-right: 5px; padding-left: 15px;" ></i>
-                  <p>  Data Mesin </p>
+                  <p>  Data Machine </p>
                 </a>
               </li>
               <li class="nav-item">
@@ -92,19 +92,19 @@
               <li class="nav-item">
                 <a :href="$route('finger.pageDepartemen')" class="nav-link" :class="$route().current('finger.pageDepartemen') ? 'active' : ''">
                 <i class="fa-solid fa-users-line" style="padding-right: 5px; padding-left: 15px;" ></i>
-                  <p>  Data Departemen</p>
+                  <p>  Department Data</p>
                 </a>
               </li>
               <li class="nav-item">
                 <a :href="$route('finger.pageDatapegawai')" class="nav-link" :class="$route().current('finger.pageDatapegawai') ? 'active' : ''">
                 <i class="fa-solid fa-people-group" style="padding-right: 5px; padding-left: 15px;" ></i>
-                  <p>  Data Pegawai</p>
+                  <p>  Employee Data</p>
                 </a>
               </li>
               <li class="nav-item">
                 <a :href="$route('finger.pageDatashift')" class="nav-link" :class="$route().current('finger.pageDatashift') ? 'active' : ''">
                 <i class="fa-regular fa-clock" style="padding-right: 5px; padding-left: 15px;" ></i>
-                  <p>  Data Shift</p>
+                  <p>  Daily Works</p>
                 </a>
               </li>
               <li class="nav-item">
@@ -116,9 +116,15 @@
               <li class="nav-item">
                 <a :href="$route('finger.pageSchedulemaster')" class="nav-link" :class="$route().current('finger.pageSchedulemaster') ? 'active' : ''">
                 <i class="fa-solid fa-database " style="padding-right: 5px; padding-left: 15px;" ></i>
-                  <p> Schedule - Master</p>
+                  <p> Working Schedule </p>
                 </a>
               </li>
+              <!-- <li class="nav-item">
+                <a :href="$route('finger.pageSchedulemaster')" class="nav-link" :class="$route().current('finger.pageShedulemaster') ? 'active' : ''">
+                <i class="fa-solid fa-database " style="padding-right: 5px; padding-left: 15px;" ></i>
+                  <p> Working Schedule B </p>
+                </a>
+              </li> -->
               <li class="nav-item">
                 <a :href="$route('finger.pageSchedule')" class="nav-link" :class="$route().current('finger.pageSchedule') ? 'active' : ''">
                 <i class="fa-solid fa-calendar-week" style="padding-right:5px; padding-left: 15px;"></i>

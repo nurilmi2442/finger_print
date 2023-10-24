@@ -1,5 +1,5 @@
 <template>
-    <layout title="Data Departemen">
+    <layout title="Department Data">
     <ConfirmDialog></ConfirmDialog>
     <Toast position="top-center" />
 

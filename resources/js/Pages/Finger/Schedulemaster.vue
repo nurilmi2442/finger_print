@@ -1,46 +1,34 @@
 <template>
-    <layout title="Schedule - Master">
+    <layout title="Working - Schedule">
     <ConfirmDialog></ConfirmDialog>
     <Toast position="top-center" />
 
-    <div class="row">
-        <div class="col">
-            <label for="departemen" class="control-label"
-                style="display: block; margin-top: 1rem;">Departemen :</label>
-            <Dropdown v-model="form.nama_departemen" :options="dataDepartemen"  @change="filterData" optionLabel="nama_departemen"
-                optionValue="id" placeholder="Select a Departemen" style="width: 100%!important" :filter="true"  filterPlaceholder="Cari..." />
+    <div class>
+        <label for="tanggal" class="contro l-label" style="display: block;">Periode : </label>
+        <div class="row">
+                <div class="col-md-6" style="display:flex ;">
+                    <div>
+                        <InputText  type="date" nama="start_date" v-model="form.start_date"/>
+                    </div>
+                    <div style="margin-left: 10px;">
+                        <div>
+                            <span style="margin-right: 10px;">-</span>
+                            <InputText  type="date" nama="end_date" v-model="form.end_date"/>
+                        </div>
+                    </div>
+                </div>
         </div>
-        <div class="col">
-            <label for="datapegawai" class="control-label"
-                style="display: block; margin-top: 1rem;">Employee:</label>
-            <Dropdown v-model="form.nama_pegawai" :options="dataPegawai" @change="filterData"
-                optionLabel="nama" optionValue="id" placeholder="Select a name" style="width: 100%!important" :filter="true"  filterPlaceholder="Cari..." />
-        </div>
-        <div class="col">
-            <label for="datashift" class="control-label"
-                style="display: block; margin-top: 1rem;">Shift:</label>
-            <Dropdown v-model="form.nama_shift" :options="dataShift" @change="filterData"
-                optionLabel="nama" optionValue="id" placeholder="Select a Shift" style="width: 100%!important" :filter="true"  filterPlaceholder="Cari..." />
-        </div>
-        <div class="col">
-            <label for="groupshift" class="control-label"
-                style="display: block; margin-top: 1rem;">Group shift:</label>
-            <Dropdown v-model="form.nama_groupshift" :options="dataGroupshift" @change="filterData"
-                optionLabel="nama_group" optionValue="id" placeholder="Select a Group" style="width: 100%!important" :filter="true"  filterPlaceholder="Cari..." />
-        </div>
-        <div class="col">
-            <label for="tanggal" class="control-label"
-                style="display: block; margin-top: 1rem;">Start date :</label>
-            <InputText type="date" v-model="selectedProject" @input="filterData"/>
-        </div>
-        <div class="col">
-            <label for="tanggal" class="control-label"
-                style="display: block; margin-top: 1rem;">End date:</label>
-            <InputText type="date" v-model="selectedProject" @input="filterData"/>
+
+        <div class="row">
+            <div class="col-md-6">
+                <label for="unit" class="control-label" style="display: block;  margin-top: 1rem;">Unit :</label>
+            <Dropdown v-model="form.unit" :options="dataUnit"   optionLabel="unit"
+                optionValue="id" placeholder="Select a Unit" :filter="true"  filterPlaceholder="Cari..." style="width: 57%;" />
+            </div>
         </div>
 
         <div class="p-mb-6">
-                <Button label="Process" style="display: block; margin-top: 3.2rem;" class="p-button-sm p-button-sm" @click="process"></Button>
+            <Button label="Process" style="display: block; margin-top: 1rem;" class="p-button-sm p-button-sm" @click="process"></Button>
         </div>
     </div>
 
@@ -54,15 +42,17 @@
                         {{ ((lazyParams.page - 1) * dataSchedulemaster.per_page) + slotProps.index + 1 }}
                     </template>
                 </Column>
-                <Column field="nama" header="Nama"></Column>
-                <Column field="nama_group" header="Shift"></Column>
-                <Column field="selected_date" header="Tanggal"></Column>
-                <Column field="">
-                    <template #body="slotProps">
-                        <!-- <Button icon="pi pi-pencil" class="p-button-rounded p-button-success p-mr-2" @click="onEdit(slotProps.data)" style="margin-right: 10px;"></Button> -->
-                        <Button @click="onDelete(slotProps.data)" icon="pi pi-trash" class="p-button-rounded p-button-warning" ></Button>
-                    </template>
-                </Column>
+                <Column field="nama_lengkap" header="NAMA "></Column>
+                <Column field="nik" header="NIK"></Column>
+                <Column field="nama_jabatan" header="JABATAN"></Column>
+                <template v-for="(item,index) in daylist">
+                    <Column :header="item" @click="onclickDate">
+                        <template #body="slotProps">
+                            <Dropdown :class="cekWeekend(item)"  @update:modelValue="(val)=>Onchangeshift(val,slotProps.data,item)" :modelValue="workSch(slotProps.data,item)" :options="dataShift"  optionLabel="nama" optionValue="id" placeholder="Shift"  style="width: 100%;" />
+                        </template>
+                    </Column>
+                </template>
+
                 <template #empty>
                     No records found
                 </template>
@@ -82,7 +72,7 @@ import Toolbar from 'primevue/toolbar';
 import RadioButton from 'primevue/radiobutton';
 import InputText from 'primevue/inputtext';
 import ColumnGroup from 'primevue/columngroup';
-import {getschedulemaster, hapusschedulemaster} from '../../Api/schedulemaster.api';
+import {getschedulemaster, getpegawai, getworkingsch } from '../../Api/schedulemaster.api';
 
 
 export default {
@@ -102,32 +92,27 @@ export default {
     data() {
         return {
             loading:false,
-            dataSites:[],
             search:'',
             display:false,
             filters: {},
+            daylist:[],
             dataSchedulemaster:[],
-            dataDepartemen:[],
-            dataGroupshift:[],
+            dataUnit:[],
+            dataUnit2:[],
             dataShift:[],
-            dataPegawai:[],
             modalTitle:null,
             submitted: false,
             form:{
-                id:null,
-                nama_departemen:null,
-                nama_pegawai:null,
-                nama_shift:null,
-                nama_groupshift:null,
-                tanggal:null
+                unit:null,
+                start_date:null,
+                end_date:null,
+                nama:null,
             },
             initform:{
-                id:null,
-                nama_departemen:null,
-                nama_pegawai:null,
-                nama_shift:null,
-                nama_groupshift:null,
-                tanggal:null
+                unit:null,
+                start_date:null,
+                end_date:null,
+                nama:null,
             },
             lazyParams:{
                 page:1
@@ -140,56 +125,131 @@ export default {
         }
     },
     methods:{
+        workSch(item, date){
+           var a = item.workingsch.find(x=>x.tanggal == date);
+
+           if(a){
+            return parseInt(a.shift);
+           }
+
+        },
+        cekWeekend(date){
+            const myDate = new Date(date);
+
+            if (myDate.getDay() === 6 || myDate.getDay() === 0)
+            {
+            return 'weekend';
+            }
+        },
+
         async loadLazyData() {
             this.loading = true;
-            const res = await getschedulemaster({page : this.lazyParams.page, ...this.form})
+            const res = await getschedulemaster({page : this.lazyParams.page})
 
-            this.dataSchedulemaster = res.data.schedulemaster;
+            this.dataSchedulemaster = res.data.pegawai;
             this.loading = false;
         },
         onPage(event) {
             this.lazyParams.page = event.page + 1;
             this.loadLazyData();
         },
-        filterData(){
-            this.totalData = 0;
-            this.loadLazyData();
+        getDaysArray(start, end) {
+         for(var arr=[],dt=new Date(start); dt<=new Date(end); dt.setDate(dt.getDate()+1)){
+        arr.push(this.formatDate( new Date(dt)));
+         }
+         return arr;
         },
-        process(){
-            this.modalTitle = 'process';
-            this.display = true;
-            Object.assign(this.form, this.initform);
-        },
-        onDelete(data){
-            this.$confirm.require({
-                message: 'Are you sure you want to proceed?',
-                header: 'Confirmation',
-                icon: 'pi pi-exclamation-triangle',
-                accept: async () => {
-                    await hapusschedulemaster({id:data.id});
-                    await this.$toast.add({severity:'success', summary: 'Informasi!', detail:'Berhasil Di hapus', life: 3000});
-                    await this.loadLazyData();
-                },
-                reject: () => {
-                    //callback to execute when user rejects the action
-                }
-            });
-        },
-        onEdit(data){
-            this.modalTitle = 'Ubah';
-            Object.assign(this.form, data);
-            this.display = true;
-        },
+        formatDate(date) {
+        var d = new Date(date),
+            month = '' + (d.getMonth() + 1),
+            day = '' + d.getDate(),
+            year = d.getFullYear();
 
+        if (month.length < 2)
+            month = '0' + month;
+        if (day.length < 2)
+            day = '0' + day;
+
+        return [year, month, day].join('-');
+        },
+        async process(){
+            if (!this.form.unit || !this.form.start_date || !this.form.end_date){
+            this.$toast.add({
+                severity: 'error',
+                summary: 'Kesalahan!',
+                detail: 'Pilih Periode dan Unit sebelum melanjutkan.',
+                life: 3000
+            });
+            return;
+          }
+            const startDate = new Date(this.form.start_date);
+            const endDate = new Date(this.form.end_date);
+
+            if (startDate > endDate) {
+                this.$toast.add({
+                    severity: 'error',
+                    summary: 'Kesalahan!',
+                    detail: 'Start date tidak boleh lebih besar dari end date.',
+                    life: 3000
+                });
+                return;
+            }
+
+            var daylist = this.getDaysArray(startDate, endDate);
+            this.daylist=daylist;
+            var unit = this.dataUnit2;
+            const id = this.form.unit;
+            this.loading = true;
+            const data =await getpegawai({ id,...this.form });
+            this.dataSchedulemaster = data.data.pegawai;
+            this.loading = false;
+        },
+       async Onchangeshift(val,pgw,date){
+            // cari row
+            var a = this.dataSchedulemaster.data.findIndex(x=>x.id == pgw.id);
+
+            var b = this.dataSchedulemaster.data[a].workingsch.findIndex(x=>x.tanggal == date);
+
+            if(b < 0){
+                var newData = {
+                    id_pegawai : pgw.id,
+                    tanggal :date,
+                    shift : val
+                }
+                this.dataSchedulemaster.data[a].workingsch.push(newData);
+            }
+            else{
+                this.dataSchedulemaster.data[a].workingsch[b].shift = val
+            }
+
+            this.loading = true;
+            const params = {
+                tanggal : date,
+                id_pegawai:pgw.id,
+                shift:val
+
+            }
+            const data =await getworkingsch(params);
+            this.loading = false;
+        },
+        handleSubmit() {
+        if (this.start_date > this.end_date) {
+        this.$toasted.error('Start date cannot be greater than end date');
+        } else {}
+        }
     },
 
     mounted(){
-        this.dataDepartemen = this.$page.props.departemen;
-        this.dataPegawai = this.$page.props.datapegawai;
-        this.dataGroupshift = this.$page.props.groupshift;
+        this.dataUnit = this.$page.props.masterunit;
+        this.dataUnit2 = this.$page.props.masterunit;
         this.dataShift = this.$page.props.datashift;
-        this.dataSchedulemaster = this.$page.props.schedulemaster;
+        this.dataSchedulemaster = this.$page.props.pegawai;
     }
-
 };
 </script>
+
+<style>
+.weekend{
+    background-color: #F0E68C;
+}
+</style>
