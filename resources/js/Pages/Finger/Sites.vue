@@ -165,7 +165,7 @@ export default {
     mounted(){
         this.dataSites = this.$page.props.site;
         this.dataTotal = this.$page.props.site.total;
-        // console.log(this.$page.props.site.total);
+        console.log(this.dataSites);
     }
 
 };

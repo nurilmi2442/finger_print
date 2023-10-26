@@ -5,6 +5,7 @@ const getuserfingerdatabase= (params) => httpClient.get('/mesin/get-userfingerda
 const synchornizefinger= (params) => httpClient.get('/mesin/get-synchornizefinger', { params });
 const hapususer= (params) => httpClient.post('/mesin/del-user', { params });
 const simpanuploaduser= (params) => httpClient.post('/mesin/simpan-uploaduser', params);
+const upload= (params) => httpClient.post('/mesin/upload', params);
 
 export {
     getuserfinger,
@@ -12,4 +13,5 @@ export {
     getuserfingerdatabase,
     hapususer,
     simpanuploaduser,
+    upload,
 }

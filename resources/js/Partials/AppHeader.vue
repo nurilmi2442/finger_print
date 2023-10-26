@@ -77,6 +77,12 @@
                   <p>  Log </p>
                 </a>
               </li>
+              <li class="nav-item">
+                <a :href="$route('device.pageDeviceCmd')" class="nav-link" :class="$route().current('device.pageDeviceCmd') ? 'active' : ''">
+                <i class="fa-solid fa-file" style="padding-right: 5px; padding-left: 15px;" ></i>
+                  <p>  DeviceCmd </p>
+                </a>
+              </li>
              </ul>
           </li>
           <li class="nav-item" :class="$route().current().indexOf('finger.') >= 0 ? 'menu-open' : ''">

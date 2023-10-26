@@ -230,6 +230,7 @@ export default {
         this.dataMesin = this.$page.props.datamesin;
         this.dataSites = this.$page.props.sites;
         this.dataTotal = this.$page.props.datamesin.total;
+        console.log(this.dataMesin);
 
     }
 

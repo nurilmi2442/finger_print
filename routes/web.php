@@ -13,6 +13,7 @@ use App\Http\Controllers\{
     TransaksiController,
     CetakController,
     CekController,
+    DeviceCmdController,
     UserfingerController,
     FingerController,
     MesinController,
@@ -41,6 +42,7 @@ Route::get('/iclock/cdata', [IclockController::class, 'handshake']);
 // request dari device
 Route::post('/iclock/cdata', [IclockController::class, 'receiveRecords']);
 Route::get('/iclock/getrequest', [IclockController::class, 'getrequest']);
+Route::post('/iclock/devicecmd', [IclockController::class, 'devicecmd']);
 
 
 
@@ -138,6 +140,11 @@ Route::prefix('device')->name('device.')->group(function () {
     Route::get('/log', [LogController::class, 'pageLog'])->name('pageLog');
     Route::get('/get-log', [LogController::class, 'pageLog'])->name('getlog');
 
+    Route::get('/devicecmd', [MesinController::class, 'pageDeviceCmd'])->name('pageDeviceCmd');
+    Route::get('/get-device', [MesinController::class, 'pageDeviceCmd'])->name('getdevice');
+
+
+
 });
 
 Route::prefix('finger')->name('finger.')->group(function () {
@@ -172,6 +179,7 @@ Route::prefix('finger')->name('finger.')->group(function () {
     Route::post('/simpan-users', [UsersController::class, 'simpanUsers'])->name('simpanUsers');
     Route::post('/del-users', [UsersController::class, 'hapusUsers'])->name('hapusUsers');
 
+
     Route::get('/schedule', [FingerController::class, 'pageSchedule'])->name('pageSchedule');
 });
 
@@ -185,6 +193,8 @@ Route::prefix('mesin')->name('mesin.')->group(function () {
     Route::get('/get-userfingerdatabase', [UserfingerController::class, 'GetUserdatabase'])->name('GetUserfinger');
     Route::post('/simpan-uploaduser', [UserfingerController::class, 'uploadUser'])->name('uploadUser');
     Route::post('/del-user', [UserfingerController::class, 'hapusUser'])->name('hapusUser');
+
+    Route::post('/upload', [UserfingerController::class, 'uploadData'])->name('uploadData');
 
     Route::get('/get-synchornizefinger', [UserfingerController::class, 'Getfinger'])->name('Getfinger');
 });

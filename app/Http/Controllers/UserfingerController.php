@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Datamesin;
+use App\Models\Device_cmd;
 use App\Models\Userfinger;
 use App\Models\Sites;
 
@@ -67,8 +68,6 @@ class UserfingerController extends Controller
         } else {
             echo "<p>Koneksi Gagal</p>";
         }
-
-
 
         $finger = [];
         $dataFinger =[];
@@ -171,21 +170,6 @@ class UserfingerController extends Controller
         echo $buffer;
     }
 
-    public function GetUserdatabase(Request $request)
-    {
-        $datauserfingerdb = DB::table('user_finger')
-        ->leftJoin('data_finger', 'user_finger.pin2', '=', 'data_finger.pin')
-        ->select('user_finger.pin2','user_finger.name', DB::raw('COUNT(user_finger.pin2) AS jumlah_finger'))
-        ->groupBy('user_finger.pin2', 'user_finger.name');
-
-        if($request->ip){
-            $datauserfingerdb=$datauserfingerdb->where('id_mesin', $request->ip);
-        }
-        $datauserfingerdb = $datauserfingerdb->get();
-        return response()->json([
-            'datauserfingerdb' => $datauserfingerdb
-        ]);
-    }
 
     protected function _FpfromMachine($params){
         $connect = fsockopen($params['ip'], "80", $errno, $errstr, 1);
@@ -222,4 +206,39 @@ class UserfingerController extends Controller
         }
         return $result;
     }
+
+    public function GetUserdatabase(Request $request)
+    {
+        $datauserfingerdb = DB::table('user_finger')
+        ->leftJoin('data_finger', 'user_finger.pin2', '=', 'data_finger.pin')
+        ->select('user_finger.pin2','user_finger.name', DB::raw('COUNT(user_finger.pin2) AS jumlah_finger'))
+        ->groupBy('user_finger.pin2', 'user_finger.name');
+
+        if($request->ip){
+            $datauserfingerdb=$datauserfingerdb->where('id_mesin', $request->ip);
+        }
+
+        $datauserfingerdb = $datauserfingerdb->get();
+        return response()->json([
+            'datauserfingerdb' => $datauserfingerdb
+        ]);
+    }
+
+    public function uploadData(Request $request)
+    {
+        $command = "DATA UPDATE USERINFO PIN=".$request->input('pin2')."\tName=".$request->input('name');
+        $device = DB::table('datamesin')->selectRaw("id, id_sites, ip, sn")->where('id', $request->ip)->first();
+
+        $upload = Device_cmd::create([
+            'sn' => $device->sn,
+            'command' => $command,
+        ]);
+
+        return response()->json([
+            'data' => $upload,
+            'command' => $command,
+            'message' => 'Data user berhasil diupload'
+        ]);
+    }
+
 }

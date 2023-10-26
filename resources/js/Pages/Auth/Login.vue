@@ -6,7 +6,7 @@
 
       <div class="form-box col-md-8 col-sm-10 col-xs-12" style="background-color: #4f89b6; border-radius: 15px;">
         <div class="row">
-          <div class="col-lg-7 col-md-6 col-sm-6 col-xs-12" style="background: url('images/bg.jpg'); background-size: cover;
+          <div class="col-lg-7 col-md-6 col-sm-6 col-xs-12" style="background: url('images/bg.png'); background-size: cover;
             background-repeat: no-repeat;
             background-position: center center;
             min-height: 100%;

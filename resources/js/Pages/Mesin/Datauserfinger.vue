@@ -58,11 +58,11 @@
             <DataTable :value="dataUserfinger" paginator :rows="20" :rowsPerPageOptions="[5, 10, 20, 50]" :loading="loading"  tableStyle="min-width: 50rem">
                 <Column field="pin2" header="NIP"></Column>
                 <Column field="name" header="Name"></Column>
-                <Column field="jumlah_finger" header="Data finger"></Column>
                 <Column field="">
                     <template #body="slotProps">
                         <Button v-if = "slotProps.data.jumlah_finger >0" icon = "fa-solid fa-fingerprint" class="p-button-rounded p-button-fingerprint" style="margin-right: 10px;"></Button>
-                        <Button @click="onDelete(slotProps.data)" icon="pi pi-trash" class="p-button-rounded p-button-warning" ></Button>
+                        <Button @click="onDelete(slotProps.data)" icon="pi pi-trash" class="p-button-rounded p-button-warning" style="margin-right: 10px;"></Button>
+                        <Button @click="onUpdate(slotProps.data)" icon="pi pi-download" class="p-button-rounded p-button-fingerprint" ></Button>
                     </template>
                 </Column>
                 <template #empty>
@@ -83,7 +83,7 @@ import Toolbar from 'primevue/toolbar';
 import RadioButton from 'primevue/radiobutton';//
 import InputText from 'primevue/inputtext';
 import ColumnGroup from 'primevue/columngroup';
-import {getuserfinger, getuserfingerdatabase, simpanuploaduser , hapususer , synchronizefinger} from '../../Api/datauserfinger.api';
+import {getuserfinger, getuserfingerdatabase, simpanuploaduser , hapususer , upload, synchronizefinger} from '../../Api/datauserfinger.api';
 
 export default {
     name: "Data User & Finger",
@@ -168,7 +168,6 @@ export default {
             console.log(filter);
         },
         onDelete(data){
-            console.log(data);
             this.$confirm.require({
                 message: 'Are you sure you want to proceed?',
                 header: 'Confirmation',
@@ -178,7 +177,6 @@ export default {
                     await this.$toast.add({severity:'success', summary: 'Informasi!', detail:'Berhasil Di hapus', life: 3000});
                 },
                 reject: () => {
-                    //callback to execute when user rejects the action
                 }
             });
         },
@@ -224,28 +222,18 @@ export default {
           });
 
         },
-        // async synchronize_finger(){
-        //   if (!this.form.nama && !this.form.ip){
-        //     this.$toast.add({
-        //         severity: 'error',
-        //         summary: 'Kesalahan!',
-        //         detail: 'Pilih Site dan IP sebelum melanjutkan.',
-        //         life: 3000
-        //     });
-        //     return;
-        //   }
-        //   this.loading = true;
-        //   const data = await synchronizefinger(this.form);
-        //   await this.proses();
-        //   this.loading = false;
-        //   this.$toast.add({
-        //         severity: 'success',
-        //         summary: 'Informasi!',
-        //         detail: 'Berhasil Di Tampilkan',
-        //         life: 3000
-        //   });
-
-        // },
+        async onUpdate(item){
+            console.log(item);
+          this.loading = true;
+          const data = await  upload({...item,ip:this.form.ip});
+          this.loading = false;
+          this.$toast.add({
+                severity: 'success',
+                summary: 'Informasi!',
+                detail: 'Berhasil Di Upload',
+                life: 3000
+          });
+        },
     },
     mounted(){
         this.dataSites = this.$page.props.site;

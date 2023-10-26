@@ -153,15 +153,28 @@ protected function AttLog($arr, $mesin){
 public function getrequest(Request $request)
 {
     $sn = $request->SN;
-    $data = json_encode($request->INFO);
+    $data = json_encode($request->all());
     $data = explode(',', $data);
     $webhook = new WebhookTest;
     $c = $webhook->log(print_r($data,true), 'content');
 
-    $jumlah_log = Datamesin::where('sn', $sn)->first();
-    $jumlah_log->jumlah_user=$data[1];
-    $jumlah_log->jumlah_finger=$data[2];
-    $jumlah_log->jumlah_log=$data[3];
-    $jumlah_log->save();
+    // $jumlah_log = Datamesin::where('sn', $sn)->first();
+    // $jumlah_log->jumlah_user=$data[1];
+    // $jumlah_log->jumlah_finger=$data[2];
+    // $jumlah_log->jumlah_log=$data[3];
+    // $jumlah_log->save();
+    // $c = "C:6:DATA UPDATE USERINFO PIN=6\tName=eko";
+    // return $c;
+}
+
+public function devicecmd(Request $request)
+{
+    $sn = $request->SN;
+    $data = json_encode($request->getContent());
+    $data = explode(',', $data);
+    $webhook = new WebhookTest;
+    $c = $webhook->log(print_r($data,true), 'request');
+    return "OK";
+
 }
 }

@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Datamesin;
-use App\Models\Att_log;
+use App\Models\Device_cmd;
 use App\Models\Sites;
 
 use Illuminate\Support\Facades\DB;
@@ -136,4 +136,20 @@ class MesinController extends Controller
             'datafingerdb' => $datafingerdb
         ]);
     }
+
+    //Devicecmd
+        public function pageDeviceCmd(Request $request)
+    {
+
+        $devicecmd = Device_cmd::paginate(10);
+
+        if ($request->ajax()) {
+            return response()->json(['data' =>$devicecmd, 'message' => 'Berhasil di dapat']);
+        }
+
+        return Inertia::render('Finger/DeviceCmd',[
+            'devicecmd' => $devicecmd,
+        ]);
+    }
+
 }
