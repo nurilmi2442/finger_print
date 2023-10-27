@@ -24144,7 +24144,7 @@ var _withId = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.withScopeId)("dat
 var _hoisted_1 = {
   "class": "hold-transition login-page",
   style: {
-    "background-color": "#1984c3",
+    "background-color": "#ffffff",
     "background-size": "cover"
   }
 };
@@ -24155,7 +24155,7 @@ var _hoisted_2 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("
     "width": "100%",
     "height": "100%",
     "position": "absolute",
-    "background-color": "rgba(255, 255, 255, 0.4)",
+    "background-color": "#ffffff",
     "z-index": "0"
   }
 }, null, -1
@@ -24165,7 +24165,7 @@ var _hoisted_2 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("
 var _hoisted_3 = {
   "class": "form-box col-md-8 col-sm-10 col-xs-12",
   style: {
-    "background-color": "#4f89b6",
+    "background-color": "#ffffff",
     "border-radius": "15px"
   }
 };
@@ -34330,7 +34330,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, "\nform[data-v-a2ac2cea] {\n    margin-top: 20px;\n}\n.center-form[data-v-a2ac2cea] {\n    display: flex;\n    flex-direction: column;\n    align-items: center;\n    justify-content: center;\n    height: 70vh;\n    max-width: 80%;\n}\n\n  /* Add custom styles for the background image */\n  /* .bg-image {\n    background-image: url('images/bg.jpg');\n    background-size: cover;\n    background-repeat: no-repeat;\n    background-position: center center;\n    min-height: 100%;\n    border-radius: 15px;\n  } */\n  ", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, "\nform[data-v-a2ac2cea] {\n    margin-top: 20px;\n}\n.center-form[data-v-a2ac2cea] {\n    display: flex;\n    flex-direction: column;\n    align-items: center;\n    justify-content: center;\n    height: 70vh;\n    max-width: 80%;\n}\n  ", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 

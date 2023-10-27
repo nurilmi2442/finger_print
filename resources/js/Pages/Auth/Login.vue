@@ -1,10 +1,10 @@
 <template>
-    <div class="hold-transition login-page" style="background-color: #1984c3; background-size: cover;">
+    <div class="hold-transition login-page" style="background-color: #ffffff; background-size: cover;">
       <div class="overlay"
-        style="width: 100%; height: 100%; position: absolute; background-color: rgba(255, 255, 255, 0.4); z-index: 0;">
+        style="width: 100%; height: 100%; position: absolute; background-color: #ffffff; z-index: 0;">
       </div>
 
-      <div class="form-box col-md-8 col-sm-10 col-xs-12" style="background-color: #4f89b6; border-radius: 15px;">
+      <div class="form-box col-md-8 col-sm-10 col-xs-12" style="background-color: #ffffff; border-radius: 15px;">
         <div class="row">
           <div class="col-lg-7 col-md-6 col-sm-6 col-xs-12" style="background: url('images/bg.png'); background-size: cover;
             background-repeat: no-repeat;
@@ -112,14 +112,4 @@
     height: 70vh;
     max-width: 80%;
   }
-
-  /* Add custom styles for the background image */
-  /* .bg-image {
-    background-image: url('images/bg.jpg');
-    background-size: cover;
-    background-repeat: no-repeat;
-    background-position: center center;
-    min-height: 100%;
-    border-radius: 15px;
-  } */
   </style>
