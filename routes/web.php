@@ -142,8 +142,7 @@ Route::prefix('device')->name('device.')->group(function () {
 
     Route::get('/devicecmd', [MesinController::class, 'pageDeviceCmd'])->name('pageDeviceCmd');
     Route::get('/get-device', [MesinController::class, 'pageDeviceCmd'])->name('getdevice');
-
-
+    Route::post('/del-device', [MesinController::class, 'hapusDevicecmd'])->name('hapusdevicecmd');
 
 });
 

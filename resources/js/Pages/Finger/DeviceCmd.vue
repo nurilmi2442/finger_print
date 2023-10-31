@@ -16,6 +16,11 @@
                 <Column field="sn" header="Serial Number"></Column>
                 <Column field="created_at" header="Tanggal"></Column>
                 <Column field="command" header="command"></Column>
+                <Column field="">
+                    <template #body="slotProps">
+                        <Button @click="onDelete(slotProps.data)" icon="pi pi-trash" class="p-button-rounded p-button-warning"></Button>
+                    </template>
+                </Column>
                 <template #empty>
                     No records found
                 </template>
@@ -34,7 +39,7 @@ import Toolbar from 'primevue/toolbar';
 import RadioButton from 'primevue/radiobutton';
 import InputText from 'primevue/inputtext';
 import ColumnGroup from 'primevue/columngroup';
-import {getdevice} from '../../Api/devicecmd.api';
+import {getdevice,hapusdevice} from '../../Api/devicecmd.api';
 
 
 export default {
@@ -75,21 +80,37 @@ export default {
         async loadLazyData() {
             this.loading = true;
             const res = await getdevice({page : this.lazyParams.page})
-            // console.log(res);
 
-            this.Device = res.data.devicecmd;
+
+            this.Device = res.data.data;
             this.loading = false;
+
+
         },
         onPage(event) {
             this.lazyParams.page = event.page + 1;
             this.loadLazyData();
 
         },
+        onDelete(data){
+            this.$confirm.require({
+                message: 'Are you sure you want to proceed?',
+                header: 'Confirmation',
+                icon: 'pi pi-exclamation-triangle',
+                accept: async () => {
+                    await hapusdevice({id:data.id});
+                    await this.$toast.add({severity:'success', summary: 'Informasi!', detail:'Berhasil Di hapus', life: 3000});
+                    await this.loadLazyData();
+                },
+                reject: () => {
+                    //callback to execute when user rejects the action
+                }
+            });
+        }
     },
 
     mounted(){
         this.Device = this.$page.props.devicecmd;
-        console.log(this.Device);
     }
 
 };

@@ -174,7 +174,6 @@ export default {
         this.dataGroupshift = this.$page.props.groupshift;
         this.dataPegawai = this.$page.props.datapegawai;
         this.dataTotal = this.$page.props.groupshift.total;
-        // console.log(this.$page.props.site.total);
     }
 
 };

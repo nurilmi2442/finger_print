@@ -152,4 +152,18 @@ class MesinController extends Controller
         ]);
     }
 
+
+    public function hapusDevicecmd(Request $request)
+    {
+        $validatedData = $request->validate([
+            'id' => 'required',
+        ]);
+
+        $devicecmd= Device_cmd::findOrFail($validatedData['id']);
+
+        $devicecmd->delete();
+
+        return response()->json(['message' => 'Data proyek berhasil dihapus']);
+    }
+
 }

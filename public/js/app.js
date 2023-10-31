@@ -18013,8 +18013,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 
               case 3:
                 res = _context.sent;
-                // console.log(res);
-                _this.Device = res.data.devicecmd;
+                _this.Device = res.data.data;
                 _this.loading = false;
 
               case 6:
@@ -18028,11 +18027,59 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
     onPage: function onPage(event) {
       this.lazyParams.page = event.page + 1;
       this.loadLazyData();
+    },
+    onDelete: function onDelete(data) {
+      var _this2 = this;
+
+      this.$confirm.require({
+        message: 'Are you sure you want to proceed?',
+        header: 'Confirmation',
+        icon: 'pi pi-exclamation-triangle',
+        accept: function () {
+          var _accept = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee2() {
+            return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee2$(_context2) {
+              while (1) {
+                switch (_context2.prev = _context2.next) {
+                  case 0:
+                    _context2.next = 2;
+                    return (0,_Api_devicecmd_api__WEBPACK_IMPORTED_MODULE_10__.hapusdevice)({
+                      id: data.id
+                    });
+
+                  case 2:
+                    _context2.next = 4;
+                    return _this2.$toast.add({
+                      severity: 'success',
+                      summary: 'Informasi!',
+                      detail: 'Berhasil Di hapus',
+                      life: 3000
+                    });
+
+                  case 4:
+                    _context2.next = 6;
+                    return _this2.loadLazyData();
+
+                  case 6:
+                  case "end":
+                    return _context2.stop();
+                }
+              }
+            }, _callee2);
+          }));
+
+          function accept() {
+            return _accept.apply(this, arguments);
+          }
+
+          return accept;
+        }(),
+        reject: function reject() {//callback to execute when user rejects the action
+        }
+      });
     }
   },
   mounted: function mounted() {
     this.Device = this.$page.props.devicecmd;
-    console.log(this.Device);
   }
 });
 
@@ -18262,7 +18309,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
   mounted: function mounted() {
     this.dataGroupshift = this.$page.props.groupshift;
     this.dataPegawai = this.$page.props.datapegawai;
-    this.dataTotal = this.$page.props.groupshift.total; // console.log(this.$page.props.site.total);
+    this.dataTotal = this.$page.props.groupshift.total;
   }
 });
 
@@ -26354,6 +26401,8 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
 
   var _component_Column = (0,vue__WEBPACK_IMPORTED_MODULE_0__.resolveComponent)("Column");
 
+  var _component_Button = (0,vue__WEBPACK_IMPORTED_MODULE_0__.resolveComponent)("Button");
+
   var _component_DataTable = (0,vue__WEBPACK_IMPORTED_MODULE_0__.resolveComponent)("DataTable");
 
   var _component_layout = (0,vue__WEBPACK_IMPORTED_MODULE_0__.resolveComponent)("layout");
@@ -26404,6 +26453,23 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
           }), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_Column, {
             field: "command",
             header: "command"
+          }), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_Column, {
+            field: ""
+          }, {
+            body: (0,vue__WEBPACK_IMPORTED_MODULE_0__.withCtx)(function (slotProps) {
+              return [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_Button, {
+                onClick: function onClick($event) {
+                  return $options.onDelete(slotProps.data);
+                },
+                icon: "pi pi-trash",
+                "class": "p-button-rounded p-button-warning"
+              }, null, 8
+              /* PROPS */
+              , ["onClick"])];
+            }),
+            _: 1
+            /* STABLE */
+
           })];
         }),
         _: 1
@@ -30256,10 +30322,10 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
         }),
         "default": (0,vue__WEBPACK_IMPORTED_MODULE_0__.withCtx)(function () {
           return [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_Column, {
-            field: "pin2",
+            field: "nip",
             header: "NIP"
           }), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_Column, {
-            field: "name",
+            field: "nama_lengkap",
             header: "Name"
           }), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_Column, {
             field: ""
@@ -33543,7 +33609,8 @@ var hapusdepartemen = function hapusdepartemen(params) {
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "getdevice": () => (/* binding */ getdevice)
+/* harmony export */   "getdevice": () => (/* binding */ getdevice),
+/* harmony export */   "hapusdevice": () => (/* binding */ hapusdevice)
 /* harmony export */ });
 /* harmony import */ var _httpClient__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./httpClient */ "./resources/js/Api/httpClient.js");
 
@@ -33552,6 +33619,10 @@ var getdevice = function getdevice(params) {
   return _httpClient__WEBPACK_IMPORTED_MODULE_0__.default.get('/device/get-device', {
     params: params
   });
+};
+
+var hapusdevice = function hapusdevice(params) {
+  return _httpClient__WEBPACK_IMPORTED_MODULE_0__.default.post('/device/del-device', params);
 };
 
 

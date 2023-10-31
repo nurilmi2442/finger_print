@@ -6,6 +6,7 @@ use App\Models\Datamesin;
 use App\Models\Device_cmd;
 use App\Models\Userfinger;
 use App\Models\Sites;
+use App\Models\Pegawai;
 
 use Database\Factories\UserFactory;
 use Illuminate\Support\Facades\DB;
@@ -209,16 +210,17 @@ class UserfingerController extends Controller
 
     public function GetUserdatabase(Request $request)
     {
-        $datauserfingerdb = DB::table('user_finger')
-        ->leftJoin('data_finger', 'user_finger.pin2', '=', 'data_finger.pin')
-        ->select('user_finger.pin2','user_finger.name', DB::raw('COUNT(user_finger.pin2) AS jumlah_finger'))
-        ->groupBy('user_finger.pin2', 'user_finger.name');
+        // $datauserfingerdb = DB::table('user_finger')
+        // ->leftJoin('data_finger', 'user_finger.pin2', '=', 'data_finger.pin')
+        // ->select('user_finger.pin2','user_finger.name', DB::raw('COUNT(user_finger.pin2) AS jumlah_finger'))
+        // ->groupBy('user_finger.pin2', 'user_finger.name');
 
-        if($request->ip){
-            $datauserfingerdb=$datauserfingerdb->where('id_mesin', $request->ip);
-        }
+        // if($request->ip){
+        //     $datauserfingerdb=$datauserfingerdb->where('id_mesin', $request->ip);
+        // }
 
-        $datauserfingerdb = $datauserfingerdb->get();
+        $datauserfingerdb = Pegawai::all();
+
         return response()->json([
             'datauserfingerdb' => $datauserfingerdb
         ]);
@@ -226,7 +228,7 @@ class UserfingerController extends Controller
 
     public function uploadData(Request $request)
     {
-        $command = "DATA UPDATE USERINFO PIN=".$request->input('pin2')."\tName=".$request->input('name');
+        $command = "DATA UPDATE USERINFO PIN=".$request->input('nip')."\tName=".$request->input('nama_lengkap');
         $device = DB::table('datamesin')->selectRaw("id, id_sites, ip, sn")->where('id', $request->ip)->first();
 
         $upload = Device_cmd::create([
