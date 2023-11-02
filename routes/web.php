@@ -144,6 +144,9 @@ Route::prefix('device')->name('device.')->group(function () {
     Route::get('/get-device', [MesinController::class, 'pageDeviceCmd'])->name('getdevice');
     Route::post('/del-device', [MesinController::class, 'hapusDevicecmd'])->name('hapusdevicecmd');
 
+    Route::get('/createcmd', [MesinController::class, 'pageCreateCmd'])->name('pageCreateCmd');
+    Route::get('/get-create', [MesinController::class, 'pageCreateCmd'])->name('getcreate');
+
 });
 
 Route::prefix('finger')->name('finger.')->group(function () {

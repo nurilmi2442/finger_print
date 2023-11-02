@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Create_cmd;
 use App\Models\Datamesin;
 use App\Models\Device_cmd;
 use App\Models\Sites;
@@ -138,7 +139,7 @@ class MesinController extends Controller
     }
 
     //Devicecmd
-        public function pageDeviceCmd(Request $request)
+    public function pageDeviceCmd(Request $request)
     {
 
         $devicecmd = Device_cmd::paginate(10);
@@ -165,5 +166,51 @@ class MesinController extends Controller
 
         return response()->json(['message' => 'Data proyek berhasil dihapus']);
     }
+
+    //CreateCmd
+    public function pageCreateCmd(Request $request)
+    {
+
+        $createcmd = Datamesin::paginate(10);
+        $createcmddata = DB::table('create_cmd')
+        ->select('control')
+        ->where('flag', 'control')
+        ->get();
+
+        $createupdate = DB::table('create_cmd')
+        ->select('control')
+        ->Where('flag', 'update')
+        ->get();
+
+        $createdelete = DB::table('create_cmd')
+        ->select('control')
+        ->Where('flag', 'delete')
+        ->get();
+
+        $createquery= DB::table('create_cmd')
+        ->select('control')
+        ->Where('flag', 'query')
+        ->get();
+
+        $createclear = DB::table('create_cmd')
+        ->select('control')
+        ->Where('flag', 'clear')
+        ->get();
+
+        if ($request->ajax()) {
+            return response()->json(['data' =>$createcmd, 'message' => 'Berhasil di dapat']);
+        }
+
+        return Inertia::render('Finger/CreateCmd',[
+            'createcmd' => $createcmd,
+            'createcmddata' => $createcmddata,
+            'createupdate'=> $createupdate,
+            'createdelete' => $createdelete,
+            'createquery' => $createquery,
+            'createclear' => $createclear
+        ]);
+    }
+
+
 
 }

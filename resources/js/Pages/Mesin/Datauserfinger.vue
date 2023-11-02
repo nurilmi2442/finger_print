@@ -165,7 +165,6 @@ export default {
             })
 
             this.dataMesin = filter;
-            console.log(filter);
         },
         onDelete(data){
             this.$confirm.require({
