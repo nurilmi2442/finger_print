@@ -3,7 +3,7 @@
     <ConfirmDialog></ConfirmDialog>
     <Toast position="top-center" />
 
-    <div class="row">
+  <div class="row">
   <div class="col">
     <DataTable :value="Create.data" :lazy="true" :paginator="true" :rows="Create.per_page" ref="dt"
       :totalRecords="Create.total" :loading="loading" @page="onPage($event)"
@@ -24,17 +24,18 @@
 
     <div class="card col-lg-7" style="padding-top: 30px; padding-bottom: 20px;" >
     <table>
+
     <tr>
         <td>
-            <input type="radio" class="form-check-input" id="update" value="F"  >
-            <label for="update">Control</label>
+            <RadioButton type="radio" v-model="form.radiobutton" name="radio" value="control" class="form-check-input" id="control" style="margin-left: 3px;" />
+            <label for="control">Control</label>
         </td>
     <td>
-        <Dropdown v-model="form.control" :options="CreateData" optionLabel="control"  class="custom-dropdown"/>
+        <Dropdown v-model="form.control" :options="CreateData" optionLabel="control"  class="custom-dropdown" style="width: 200px"/>
     </td>
     <td rowspan="6">
-        <span class="p-float-label" style="width: 100%;">
-        <Textarea id="value" v-model="value" :class="{ 'p-invalid': errorMessage }" rows="10" cols="60"
+        <span class="p-float-label" style="width: 80%;">
+        <Textarea id="value" v-model="value" :class="{ 'p-invalid': errorMessage }" rows="10" cols="50"
         aria-describedby="text-error"></Textarea>
       <label for="value">Description</label>
         </span>
@@ -42,46 +43,47 @@
   </tr>
   <tr>
     <td>
-        <input type="radio" class="form-check-input" id="update" value="F">
+        <RadioButton type="radio" v-model="form.radiobutton" name="radio" value="update" class="form-check-input" id="update" style="margin-left: 3px;"/>
         <label for="update">Update</label>
     </td>
     <td>
-        <Dropdown v-model="form.control" :options="CreateUpdate" optionLabel="control"   class="custom-dropdown"/>
+        <Dropdown v-model="form.control" :options="CreateUpdate" optionLabel="control" class="custom-dropdown" style="width: 200px"/>
     </td>
   </tr>
   <tr>
     <td>
-        <input type="radio" class="form-check-input" id="update" value="F">
-        <label for="update">Delete</label>
+        <RadioButton type="radio" v-model="form.radiobutton" name="radio"  value="delete" class="form-check-input" id="delete" style="margin-left: 3px;"/>
+        <label for="delete">Delete</label>
     </td>
     <td>
-        <Dropdown v-model="form.control" :options="CreateDelete" optionLabel="control"  class="custom-dropdown" />
-    </td>
-  </tr>
-  <tr>
-    <td>
-        <input type="radio" class="form-check-input" id="update" value="F">
-        <label for="update">Query</label>
-    </td>
-    <td>
-        <Dropdown v-model="form.control" :options="CreateQuery" optionLabel="control" class="custom-dropdown"/>
+        <Dropdown v-model="form.control" :options="CreateDelete" optionLabel="control"  class="custom-dropdown" style="width: 200px"/>
     </td>
   </tr>
   <tr>
     <td>
-        <input type="radio" class="form-check-input" id="update" value="F">
-        <label for="update">Clear</label>
+        <RadioButton type="radio" v-model="form.radiobutton" name="radio"  value="query" class="form-check-input" id="query" style="margin-left: 3px;"/>
+        <label for="query">Query</label>
     </td>
     <td>
-        <Dropdown v-model="form.control" :options="CreateClear" optionLabel="control" class="custom-dropdown" />
+        <Dropdown v-model="form.control" :options="CreateQuery" optionLabel="control" class="custom-dropdown" style="width: 200px"/>
+    </td>
+  </tr>
+  <tr>
+    <td>
+        <RadioButton type="radio" v-model="form.radiobutton" name="radio"  value="clear" class="form-check-input" id="clear" style="margin-left: 3px;"/>
+        <label for="clear">Clear</label>
+    </td>
+    <td>
+        <Dropdown v-model="form.control" :options="CreateClear" optionLabel="control" class="custom-dropdown" style="width: 200px"/>
     </td>
   </tr>
   <tr>
     <td colspan="2">
-        <input type="radio" class="form-check-input" id="update" value="F">
-        <label for="update">User - Defined</label>
+        <RadioButton type="radio" v-model="form.radiobutton" name="radio"  value="user_defined" class="form-check-input" id="userdefined" style="margin-left: 3px;"/>
+        <label for="userdefined">User - Defined</label>
     </td>
   </tr>
+
 
     <tr align="end">
     <td colspan="3">
@@ -141,13 +143,24 @@ export default {
             modalTitle:null,
             submitted: false,
             form:{
+            radiobutton:null,
                control:null,
+               update:null,
+               delete:null,
+               query:null,
+               clear:null,
+               userdefined:null,
                flag:null,
 
 
             },
             initform:{
                control:null,
+               update:null,
+               delete:null,
+               query:null,
+               clear:null,
+               userdefined:null,
                flag:null,
             },
 
@@ -177,11 +190,6 @@ export default {
             this.loadLazyData();
 
         },
-        // CreateData() {
-        //     return this.createcmddata
-        //     .filter(item => item.flag === 'control')
-        //     .map(item => item.control);
-        // },
     },
 
     mounted(){
@@ -198,16 +206,43 @@ export default {
 </script>
 
 <style>
-
     .custom-dropdown {
     margin-left: 20px;
 }
-    input.form-check-input {
-        margin-left: 5px;
+
+    label[for="control"] {
+        margin-left: 27px;
+        margin-top: 3px;
     }
 
     label[for="update"] {
-        margin-left: 25px;
+        margin-left: 27px;
+        margin-top: 3px;
+    }
+
+    label[for="delete"] {
+        margin-left: 27px;
+        margin-top: 3px;
+    }
+
+    label[for="query"] {
+        margin-left: 27px;
+        margin-top: 3px;
+    }
+
+    label[for="clear"] {
+        margin-left: 27px;
+        margin-top: 3px;
+    }
+
+    label[for="update"] {
+        margin-left: 27px;
+        margin-top: 3px;
+    }
+
+    label[for="userdefined"] {
+        margin-left: 27px;
+        margin-top: 3px;
     }
 
 </style>

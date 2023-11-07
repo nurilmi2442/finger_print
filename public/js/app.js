@@ -17070,11 +17070,22 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       modalTitle: null,
       submitted: false,
       form: {
+        radiobutton: null,
         control: null,
+        update: null,
+        "delete": null,
+        query: null,
+        clear: null,
+        userdefined: null,
         flag: null
       },
       initform: {
         control: null,
+        update: null,
+        "delete": null,
+        query: null,
+        clear: null,
+        userdefined: null,
         flag: null
       },
       lazyParams: {
@@ -17124,12 +17135,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
     onPage: function onPage(event) {
       this.lazyParams.page = event.page + 1;
       this.loadLazyData();
-    } // CreateData() {
-    //     return this.createcmddata
-    //     .filter(item => item.flag === 'control')
-    //     .map(item => item.control);
-    // },
-
+    }
   },
   mounted: function mounted() {
     this.Create = this.$page.props.createcmd;
@@ -25080,14 +25086,9 @@ var _hoisted_4 = {
   }
 };
 
-var _hoisted_5 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("td", null, [/*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("input", {
-  type: "radio",
-  "class": "form-check-input",
-  id: "update",
-  value: "F"
-}), /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("label", {
-  "for": "update"
-}, "Control")], -1
+var _hoisted_5 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("label", {
+  "for": "control"
+}, "Control", -1
 /* HOISTED */
 );
 
@@ -25097,7 +25098,7 @@ var _hoisted_6 = {
 var _hoisted_7 = {
   "class": "p-float-label",
   style: {
-    "width": "100%"
+    "width": "80%"
   }
 };
 
@@ -25107,70 +25108,47 @@ var _hoisted_8 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("
 /* HOISTED */
 );
 
-var _hoisted_9 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("td", null, [/*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("input", {
-  type: "radio",
-  "class": "form-check-input",
-  id: "update",
-  value: "F"
-}), /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("label", {
+var _hoisted_9 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("label", {
   "for": "update"
-}, "Update")], -1
+}, "Update", -1
 /* HOISTED */
 );
 
-var _hoisted_10 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("td", null, [/*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("input", {
-  type: "radio",
-  "class": "form-check-input",
-  id: "update",
-  value: "F"
-}), /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("label", {
-  "for": "update"
-}, "Delete")], -1
+var _hoisted_10 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("label", {
+  "for": "delete"
+}, "Delete", -1
 /* HOISTED */
 );
 
-var _hoisted_11 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("td", null, [/*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("input", {
-  type: "radio",
-  "class": "form-check-input",
-  id: "update",
-  value: "F"
-}), /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("label", {
-  "for": "update"
-}, "Query")], -1
+var _hoisted_11 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("label", {
+  "for": "query"
+}, "Query", -1
 /* HOISTED */
 );
 
-var _hoisted_12 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("td", null, [/*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("input", {
-  type: "radio",
-  "class": "form-check-input",
-  id: "update",
-  value: "F"
-}), /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("label", {
-  "for": "update"
-}, "Clear")], -1
+var _hoisted_12 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("label", {
+  "for": "clear"
+}, "Clear", -1
 /* HOISTED */
 );
 
-var _hoisted_13 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("tr", null, [/*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("td", {
+var _hoisted_13 = {
   colspan: "2"
-}, [/*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("input", {
-  type: "radio",
-  "class": "form-check-input",
-  id: "update",
-  value: "F"
-}), /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("label", {
-  "for": "update"
-}, "User - Defined")])], -1
+};
+
+var _hoisted_14 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("label", {
+  "for": "userdefined"
+}, "User - Defined", -1
 /* HOISTED */
 );
 
-var _hoisted_14 = {
+var _hoisted_15 = {
   align: "end"
 };
-var _hoisted_15 = {
+var _hoisted_16 = {
   colspan: "3"
 };
-var _hoisted_16 = {
+var _hoisted_17 = {
   id: "text-error",
   "class": "p-error"
 };
@@ -25182,6 +25160,8 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
   var _component_Column = (0,vue__WEBPACK_IMPORTED_MODULE_0__.resolveComponent)("Column");
 
   var _component_DataTable = (0,vue__WEBPACK_IMPORTED_MODULE_0__.resolveComponent)("DataTable");
+
+  var _component_RadioButton = (0,vue__WEBPACK_IMPORTED_MODULE_0__.resolveComponent)("RadioButton");
 
   var _component_Dropdown = (0,vue__WEBPACK_IMPORTED_MODULE_0__.resolveComponent)("Dropdown");
 
@@ -25241,71 +25221,176 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
 
       }, 8
       /* PROPS */
-      , ["value", "rows", "totalRecords", "loading"])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("div", _hoisted_4, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("table", null, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("tr", null, [_hoisted_5, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("td", null, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_Dropdown, {
-        modelValue: $data.form.control,
+      , ["value", "rows", "totalRecords", "loading"])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("div", _hoisted_4, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("table", null, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("tr", null, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("td", null, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_RadioButton, {
+        type: "radio",
+        modelValue: $data.form.radiobutton,
         "onUpdate:modelValue": _cache[2] || (_cache[2] = function ($event) {
+          return $data.form.radiobutton = $event;
+        }),
+        name: "radio",
+        value: "control",
+        "class": "form-check-input",
+        id: "control",
+        style: {
+          "margin-left": "3px"
+        }
+      }, null, 8
+      /* PROPS */
+      , ["modelValue"]), _hoisted_5]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("td", null, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_Dropdown, {
+        modelValue: $data.form.control,
+        "onUpdate:modelValue": _cache[3] || (_cache[3] = function ($event) {
           return $data.form.control = $event;
         }),
         options: $data.CreateData,
         optionLabel: "control",
-        "class": "custom-dropdown"
+        "class": "custom-dropdown",
+        style: {
+          "width": "200px"
+        }
       }, null, 8
       /* PROPS */
       , ["modelValue", "options"])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("td", _hoisted_6, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("span", _hoisted_7, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_Textarea, {
         id: "value",
         modelValue: _ctx.value,
-        "onUpdate:modelValue": _cache[3] || (_cache[3] = function ($event) {
+        "onUpdate:modelValue": _cache[4] || (_cache[4] = function ($event) {
           return _ctx.value = $event;
         }),
         "class": {
           'p-invalid': _ctx.errorMessage
         },
         rows: "10",
-        cols: "60",
+        cols: "50",
         "aria-describedby": "text-error"
       }, null, 8
       /* PROPS */
-      , ["modelValue", "class"]), _hoisted_8])])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("tr", null, [_hoisted_9, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("td", null, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_Dropdown, {
-        modelValue: $data.form.control,
-        "onUpdate:modelValue": _cache[4] || (_cache[4] = function ($event) {
-          return $data.form.control = $event;
-        }),
-        options: $data.CreateUpdate,
-        optionLabel: "control",
-        "class": "custom-dropdown"
-      }, null, 8
-      /* PROPS */
-      , ["modelValue", "options"])])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("tr", null, [_hoisted_10, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("td", null, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_Dropdown, {
-        modelValue: $data.form.control,
+      , ["modelValue", "class"]), _hoisted_8])])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("tr", null, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("td", null, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_RadioButton, {
+        type: "radio",
+        modelValue: $data.form.radiobutton,
         "onUpdate:modelValue": _cache[5] || (_cache[5] = function ($event) {
-          return $data.form.control = $event;
+          return $data.form.radiobutton = $event;
         }),
-        options: $data.CreateDelete,
-        optionLabel: "control",
-        "class": "custom-dropdown"
+        name: "radio",
+        value: "update",
+        "class": "form-check-input",
+        id: "update",
+        style: {
+          "margin-left": "3px"
+        }
       }, null, 8
       /* PROPS */
-      , ["modelValue", "options"])])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("tr", null, [_hoisted_11, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("td", null, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_Dropdown, {
+      , ["modelValue"]), _hoisted_9]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("td", null, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_Dropdown, {
         modelValue: $data.form.control,
         "onUpdate:modelValue": _cache[6] || (_cache[6] = function ($event) {
           return $data.form.control = $event;
         }),
-        options: $data.CreateQuery,
+        options: $data.CreateUpdate,
         optionLabel: "control",
-        "class": "custom-dropdown"
+        "class": "custom-dropdown",
+        style: {
+          "width": "200px"
+        }
       }, null, 8
       /* PROPS */
-      , ["modelValue", "options"])])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("tr", null, [_hoisted_12, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("td", null, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_Dropdown, {
-        modelValue: $data.form.control,
+      , ["modelValue", "options"])])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("tr", null, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("td", null, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_RadioButton, {
+        type: "radio",
+        modelValue: $data.form.radiobutton,
         "onUpdate:modelValue": _cache[7] || (_cache[7] = function ($event) {
+          return $data.form.radiobutton = $event;
+        }),
+        name: "radio",
+        value: "delete",
+        "class": "form-check-input",
+        id: "delete",
+        style: {
+          "margin-left": "3px"
+        }
+      }, null, 8
+      /* PROPS */
+      , ["modelValue"]), _hoisted_10]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("td", null, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_Dropdown, {
+        modelValue: $data.form.control,
+        "onUpdate:modelValue": _cache[8] || (_cache[8] = function ($event) {
+          return $data.form.control = $event;
+        }),
+        options: $data.CreateDelete,
+        optionLabel: "control",
+        "class": "custom-dropdown",
+        style: {
+          "width": "200px"
+        }
+      }, null, 8
+      /* PROPS */
+      , ["modelValue", "options"])])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("tr", null, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("td", null, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_RadioButton, {
+        type: "radio",
+        modelValue: $data.form.radiobutton,
+        "onUpdate:modelValue": _cache[9] || (_cache[9] = function ($event) {
+          return $data.form.radiobutton = $event;
+        }),
+        name: "radio",
+        value: "query",
+        "class": "form-check-input",
+        id: "query",
+        style: {
+          "margin-left": "3px"
+        }
+      }, null, 8
+      /* PROPS */
+      , ["modelValue"]), _hoisted_11]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("td", null, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_Dropdown, {
+        modelValue: $data.form.control,
+        "onUpdate:modelValue": _cache[10] || (_cache[10] = function ($event) {
+          return $data.form.control = $event;
+        }),
+        options: $data.CreateQuery,
+        optionLabel: "control",
+        "class": "custom-dropdown",
+        style: {
+          "width": "200px"
+        }
+      }, null, 8
+      /* PROPS */
+      , ["modelValue", "options"])])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("tr", null, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("td", null, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_RadioButton, {
+        type: "radio",
+        modelValue: $data.form.radiobutton,
+        "onUpdate:modelValue": _cache[11] || (_cache[11] = function ($event) {
+          return $data.form.radiobutton = $event;
+        }),
+        name: "radio",
+        value: "clear",
+        "class": "form-check-input",
+        id: "clear",
+        style: {
+          "margin-left": "3px"
+        }
+      }, null, 8
+      /* PROPS */
+      , ["modelValue"]), _hoisted_12]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("td", null, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_Dropdown, {
+        modelValue: $data.form.control,
+        "onUpdate:modelValue": _cache[12] || (_cache[12] = function ($event) {
           return $data.form.control = $event;
         }),
         options: $data.CreateClear,
         optionLabel: "control",
-        "class": "custom-dropdown"
+        "class": "custom-dropdown",
+        style: {
+          "width": "200px"
+        }
       }, null, 8
       /* PROPS */
-      , ["modelValue", "options"])])]), _hoisted_13, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("tr", _hoisted_14, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("td", _hoisted_15, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("small", _hoisted_16, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(_ctx.errorMessage || ' '), 1
+      , ["modelValue", "options"])])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("tr", null, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("td", _hoisted_13, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_RadioButton, {
+        type: "radio",
+        modelValue: $data.form.radiobutton,
+        "onUpdate:modelValue": _cache[13] || (_cache[13] = function ($event) {
+          return $data.form.radiobutton = $event;
+        }),
+        name: "radio",
+        value: "user_defined",
+        "class": "form-check-input",
+        id: "userdefined",
+        style: {
+          "margin-left": "3px"
+        }
+      }, null, 8
+      /* PROPS */
+      , ["modelValue"]), _hoisted_14])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("tr", _hoisted_15, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("td", _hoisted_16, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("small", _hoisted_17, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(_ctx.errorMessage || ' '), 1
       /* TEXT */
       ), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_Button, {
         type: "submit",
@@ -34957,7 +35042,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, "\n.custom-dropdown {\n    margin-left: 20px;\n}\ninput.form-check-input {\n        margin-left: 5px;\n}\nlabel[for=\"update\"] {\n        margin-left: 25px;\n}\n\n", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, "\n.custom-dropdown {\n    margin-left: 20px;\n}\nlabel[for=\"control\"] {\n        margin-left: 27px;\n        margin-top: 3px;\n}\nlabel[for=\"update\"] {\n        margin-left: 27px;\n        margin-top: 3px;\n}\nlabel[for=\"delete\"] {\n        margin-left: 27px;\n        margin-top: 3px;\n}\nlabel[for=\"query\"] {\n        margin-left: 27px;\n        margin-top: 3px;\n}\nlabel[for=\"clear\"] {\n        margin-left: 27px;\n        margin-top: 3px;\n}\nlabel[for=\"update\"] {\n        margin-left: 27px;\n        margin-top: 3px;\n}\nlabel[for=\"userdefined\"] {\n        margin-left: 27px;\n        margin-top: 3px;\n}\n\n", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
