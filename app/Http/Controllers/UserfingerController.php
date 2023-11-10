@@ -210,15 +210,6 @@ class UserfingerController extends Controller
 
     public function GetUserdatabase(Request $request)
     {
-        // $datauserfingerdb = DB::table('user_finger')
-        // ->leftJoin('data_finger', 'user_finger.pin2', '=', 'data_finger.pin')
-        // ->select('user_finger.pin2','user_finger.name', DB::raw('COUNT(user_finger.pin2) AS jumlah_finger'))
-        // ->groupBy('user_finger.pin2', 'user_finger.name');
-
-        // if($request->ip){
-        //     $datauserfingerdb=$datauserfingerdb->where('id_mesin', $request->ip);
-        // }
-
         $datauserfingerdb = Pegawai::all();
 
         return response()->json([

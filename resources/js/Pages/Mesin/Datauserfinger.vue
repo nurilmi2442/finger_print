@@ -222,7 +222,6 @@ export default {
 
         },
         async onUpdate(item){
-            console.log(item);
           this.loading = true;
           const data = await  upload({...item,ip:this.form.ip});
           this.loading = false;

@@ -79,13 +79,13 @@
               </li>
               <li class="nav-item">
                 <a :href="$route('device.pageDeviceCmd')" class="nav-link" :class="$route().current('device.pageDeviceCmd') ? 'active' : ''">
-                <i class="fa-solid fa-file" style="padding-right: 5px; padding-left: 15px;" ></i>
+                <i class="fa-solid fa-ellipsis-v" style="padding-right: 5px; padding-left: 15px;" ></i>
                   <p>  DeviceCmd </p>
                 </a>
               </li>
               <li class="nav-item">
                 <a :href="$route('device.pageCreateCmd')" class="nav-link" :class="$route().current('device.pageCreateCmd') ? 'active' : ''">
-                <i class="fa-solid fa-file" style="padding-right: 5px; padding-left: 15px;" ></i>
+                <i class="fa-solid fa-file-import" style="padding-right: 5px; padding-left: 8px;" ></i>
                   <p>  CreateCmd </p>
                 </a>
               </li>
@@ -101,18 +101,18 @@
             </a>
             <ul class="nav nav-treeview">
 
-              <li class="nav-item">
+              <!-- <li class="nav-item">
                 <a :href="$route('finger.pageDepartemen')" class="nav-link" :class="$route().current('finger.pageDepartemen') ? 'active' : ''">
                 <i class="fa-solid fa-users-line" style="padding-right: 5px; padding-left: 15px;" ></i>
                   <p>  Department Data</p>
                 </a>
-              </li>
-              <li class="nav-item">
+              </li> -->
+              <!-- <li class="nav-item">
                 <a :href="$route('finger.pageDatapegawai')" class="nav-link" :class="$route().current('finger.pageDatapegawai') ? 'active' : ''">
                 <i class="fa-solid fa-people-group" style="padding-right: 5px; padding-left: 15px;" ></i>
                   <p>  Employee Data</p>
                 </a>
-              </li>
+              </li> -->
               <li class="nav-item">
                 <a :href="$route('finger.pageDatashift')" class="nav-link" :class="$route().current('finger.pageDatashift') ? 'active' : ''">
                 <i class="fa-regular fa-clock" style="padding-right: 5px; padding-left: 15px;" ></i>

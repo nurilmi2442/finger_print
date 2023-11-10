@@ -17025,11 +17025,13 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var primevue_inputtext__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! primevue/inputtext */ "./node_modules/primevue/inputtext/inputtext.esm.js");
 /* harmony import */ var primevue_columngroup__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! primevue/columngroup */ "./node_modules/primevue/columngroup/columngroup.esm.js");
 /* harmony import */ var _Api_createcmd_api__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ../../Api/createcmd.api */ "./resources/js/Api/createcmd.api.js");
+/* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.esm-bundler.js");
 
 
 function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
 
 function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
+
 
 
 
@@ -17054,6 +17056,47 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
     Button: primevue_button__WEBPACK_IMPORTED_MODULE_5__.default,
     ColumnGroup: primevue_columngroup__WEBPACK_IMPORTED_MODULE_9__.default
   },
+  watch: {
+    selectedcreate: function selectedcreate(val) {
+      this.form.sn = val.sn;
+    },
+    'form.control': function formControl(val) {
+      console.log("Data", val);
+
+      if (this.form.radiobutton == 'control') {
+        var cmd = this.CreateData.find(function (x) {
+          return x.control == val.control;
+        });
+        this.form.command = cmd.command;
+      } else if (this.form.radiobutton == 'update') {
+        var _cmd = this.CreateUpdate.find(function (x) {
+          return x.control == val.control;
+        });
+
+        this.form.command = _cmd.command;
+      } else if (this.form.radiobutton == 'delete') {
+        var _cmd2 = this.CreateDelete.find(function (x) {
+          return x.control == val.control;
+        });
+
+        this.form.command = _cmd2.command;
+      } else if (this.form.radiobutton == 'query') {
+        var _cmd3 = this.CreateQuery.find(function (x) {
+          return x.control == val.control;
+        });
+
+        this.form.command = _cmd3.command;
+      } else if (this.form.radiobutton == 'clear') {
+        var _cmd4 = this.CreateClear.find(function (x) {
+          return x.control == val.control;
+        });
+
+        this.form.command = _cmd4.command;
+      }
+
+      console.log(this.CreateData, this.form.command);
+    }
+  },
   data: function data() {
     return {
       loading: false,
@@ -17067,25 +17110,21 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       CreateClear: [],
       CreateQuery: [],
       filters: {},
+      command: [],
       modalTitle: null,
       submitted: false,
+      selectedcreate: [],
       form: {
+        sn: null,
         radiobutton: null,
+        getDataDB: null,
         control: null,
-        update: null,
-        "delete": null,
-        query: null,
-        clear: null,
-        userdefined: null,
         flag: null
       },
       initform: {
+        sn: null,
+        radiobutton: null,
         control: null,
-        update: null,
-        "delete": null,
-        query: null,
-        clear: null,
-        userdefined: null,
         flag: null
       },
       lazyParams: {
@@ -17135,6 +17174,39 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
     onPage: function onPage(event) {
       this.lazyParams.page = event.page + 1;
       this.loadLazyData();
+    },
+    simpan: function simpan() {
+      var _this2 = this;
+
+      return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee2() {
+        var data;
+        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee2$(_context2) {
+          while (1) {
+            switch (_context2.prev = _context2.next) {
+              case 0:
+                _this2.loading = true;
+                _context2.next = 3;
+                return (0,_Api_createcmd_api__WEBPACK_IMPORTED_MODULE_10__.upload)(_this2.form);
+
+              case 3:
+                data = _context2.sent;
+                console.log('Data berhasil dikirim');
+                _this2.loading = false;
+
+                _this2.$toast.add({
+                  severity: 'success',
+                  summary: 'Informasi!',
+                  detail: 'Berhasil Di simpan',
+                  life: 3000
+                });
+
+              case 7:
+              case "end":
+                return _context2.stop();
+            }
+          }
+        }, _callee2);
+      }))();
     }
   },
   mounted: function mounted() {
@@ -17146,6 +17218,8 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
     this.CreateClear = this.$page.props.createclear;
   }
 });
+var metaKey = (0,vue__WEBPACK_IMPORTED_MODULE_11__.ref)(true);
+var selectedcreate = (0,vue__WEBPACK_IMPORTED_MODULE_11__.ref)();
 
 /***/ }),
 
@@ -21503,14 +21577,13 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
           while (1) {
             switch (_context6.prev = _context6.next) {
               case 0:
-                console.log(item);
                 _this7.loading = true;
-                _context6.next = 4;
+                _context6.next = 3;
                 return (0,_Api_datauserfinger_api__WEBPACK_IMPORTED_MODULE_10__.upload)(_objectSpread(_objectSpread({}, item), {}, {
                   ip: _this7.form.ip
                 }));
 
-              case 4:
+              case 3:
                 data = _context6.sent;
                 _this7.loading = false;
 
@@ -21521,7 +21594,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                   life: 3000
                 });
 
-              case 7:
+              case 6:
               case "end":
                 return _context6.stop();
             }
@@ -25103,55 +25176,39 @@ var _hoisted_7 = {
 };
 
 var _hoisted_8 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("label", {
-  "for": "value"
-}, "Description", -1
-/* HOISTED */
-);
-
-var _hoisted_9 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("label", {
   "for": "update"
 }, "Update", -1
 /* HOISTED */
 );
 
-var _hoisted_10 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("label", {
+var _hoisted_9 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("label", {
   "for": "delete"
 }, "Delete", -1
 /* HOISTED */
 );
 
-var _hoisted_11 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("label", {
+var _hoisted_10 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("label", {
   "for": "query"
 }, "Query", -1
 /* HOISTED */
 );
 
-var _hoisted_12 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("label", {
+var _hoisted_11 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("label", {
   "for": "clear"
 }, "Clear", -1
 /* HOISTED */
 );
 
-var _hoisted_13 = {
+var _hoisted_12 = {
   colspan: "2"
 };
 
-var _hoisted_14 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("label", {
+var _hoisted_13 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("label", {
   "for": "userdefined"
 }, "User - Defined", -1
 /* HOISTED */
 );
 
-var _hoisted_15 = {
-  align: "end"
-};
-var _hoisted_16 = {
-  colspan: "3"
-};
-var _hoisted_17 = {
-  id: "text-error",
-  "class": "p-error"
-};
 function render(_ctx, _cache, $props, $setup, $data, $options) {
   var _component_ConfirmDialog = (0,vue__WEBPACK_IMPORTED_MODULE_0__.resolveComponent)("ConfirmDialog");
 
@@ -25190,7 +25247,14 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
         }),
         paginatorTemplate: "FirstPageLink PrevPageLink PageLinks NextPageLink LastPageLink CurrentPageReport",
         currentPageReportTemplate: "Showing {first} to {last} of {totalRecords}",
-        responsiveLayout: "scroll"
+        responsiveLayout: "scroll",
+        selection: $data.selectedcreate,
+        "onUpdate:selection": _cache[2] || (_cache[2] = function ($event) {
+          return $data.selectedcreate = $event;
+        }),
+        selectionMode: "single",
+        metaKeySelection: _ctx.metaKey,
+        dataKey: "id"
       }, {
         empty: (0,vue__WEBPACK_IMPORTED_MODULE_0__.withCtx)(function () {
           return [_hoisted_3];
@@ -25221,10 +25285,10 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
 
       }, 8
       /* PROPS */
-      , ["value", "rows", "totalRecords", "loading"])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("div", _hoisted_4, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("table", null, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("tr", null, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("td", null, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_RadioButton, {
+      , ["value", "rows", "totalRecords", "loading", "selection", "metaKeySelection"])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("div", _hoisted_4, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("table", null, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("tr", null, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("td", null, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_RadioButton, {
         type: "radio",
         modelValue: $data.form.radiobutton,
-        "onUpdate:modelValue": _cache[2] || (_cache[2] = function ($event) {
+        "onUpdate:modelValue": _cache[3] || (_cache[3] = function ($event) {
           return $data.form.radiobutton = $event;
         }),
         name: "radio",
@@ -25238,7 +25302,7 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
       /* PROPS */
       , ["modelValue"]), _hoisted_5]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("td", null, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_Dropdown, {
         modelValue: $data.form.control,
-        "onUpdate:modelValue": _cache[3] || (_cache[3] = function ($event) {
+        "onUpdate:modelValue": _cache[4] || (_cache[4] = function ($event) {
           return $data.form.control = $event;
         }),
         options: $data.CreateData,
@@ -25246,14 +25310,15 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
         "class": "custom-dropdown",
         style: {
           "width": "200px"
-        }
+        },
+        disabled: $data.form.radiobutton == 'control' ? false : true
       }, null, 8
       /* PROPS */
-      , ["modelValue", "options"])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("td", _hoisted_6, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("span", _hoisted_7, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_Textarea, {
+      , ["modelValue", "options", "disabled"])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("td", _hoisted_6, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("span", _hoisted_7, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_Textarea, {
         id: "value",
-        modelValue: _ctx.value,
-        "onUpdate:modelValue": _cache[4] || (_cache[4] = function ($event) {
-          return _ctx.value = $event;
+        modelValue: $data.command,
+        "onUpdate:modelValue": _cache[5] || (_cache[5] = function ($event) {
+          return $data.command = $event;
         }),
         "class": {
           'p-invalid': _ctx.errorMessage
@@ -25261,12 +25326,30 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
         rows: "10",
         cols: "50",
         "aria-describedby": "text-error"
+      }, {
+        "default": (0,vue__WEBPACK_IMPORTED_MODULE_0__.withCtx)(function () {
+          return [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)((0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($data.form.command), 1
+          /* TEXT */
+          )];
+        }),
+        _: 1
+        /* STABLE */
+
+      }, 8
+      /* PROPS */
+      , ["modelValue", "class"]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_Button, {
+        type: "submit",
+        label: "Create",
+        onClick: $options.simpan,
+        style: {
+          "margin-left": "310px"
+        }
       }, null, 8
       /* PROPS */
-      , ["modelValue", "class"]), _hoisted_8])])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("tr", null, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("td", null, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_RadioButton, {
+      , ["onClick"])])])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("tr", null, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("td", null, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_RadioButton, {
         type: "radio",
         modelValue: $data.form.radiobutton,
-        "onUpdate:modelValue": _cache[5] || (_cache[5] = function ($event) {
+        "onUpdate:modelValue": _cache[6] || (_cache[6] = function ($event) {
           return $data.form.radiobutton = $event;
         }),
         name: "radio",
@@ -25278,9 +25361,9 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
         }
       }, null, 8
       /* PROPS */
-      , ["modelValue"]), _hoisted_9]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("td", null, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_Dropdown, {
+      , ["modelValue"]), _hoisted_8]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("td", null, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_Dropdown, {
         modelValue: $data.form.control,
-        "onUpdate:modelValue": _cache[6] || (_cache[6] = function ($event) {
+        "onUpdate:modelValue": _cache[7] || (_cache[7] = function ($event) {
           return $data.form.control = $event;
         }),
         options: $data.CreateUpdate,
@@ -25288,13 +25371,14 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
         "class": "custom-dropdown",
         style: {
           "width": "200px"
-        }
+        },
+        disabled: $data.form.radiobutton == 'update' ? false : true
       }, null, 8
       /* PROPS */
-      , ["modelValue", "options"])])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("tr", null, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("td", null, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_RadioButton, {
+      , ["modelValue", "options", "disabled"])])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("tr", null, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("td", null, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_RadioButton, {
         type: "radio",
         modelValue: $data.form.radiobutton,
-        "onUpdate:modelValue": _cache[7] || (_cache[7] = function ($event) {
+        "onUpdate:modelValue": _cache[8] || (_cache[8] = function ($event) {
           return $data.form.radiobutton = $event;
         }),
         name: "radio",
@@ -25306,9 +25390,9 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
         }
       }, null, 8
       /* PROPS */
-      , ["modelValue"]), _hoisted_10]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("td", null, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_Dropdown, {
+      , ["modelValue"]), _hoisted_9]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("td", null, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_Dropdown, {
         modelValue: $data.form.control,
-        "onUpdate:modelValue": _cache[8] || (_cache[8] = function ($event) {
+        "onUpdate:modelValue": _cache[9] || (_cache[9] = function ($event) {
           return $data.form.control = $event;
         }),
         options: $data.CreateDelete,
@@ -25316,13 +25400,14 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
         "class": "custom-dropdown",
         style: {
           "width": "200px"
-        }
+        },
+        disabled: $data.form.radiobutton == 'delete' ? false : true
       }, null, 8
       /* PROPS */
-      , ["modelValue", "options"])])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("tr", null, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("td", null, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_RadioButton, {
+      , ["modelValue", "options", "disabled"])])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("tr", null, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("td", null, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_RadioButton, {
         type: "radio",
         modelValue: $data.form.radiobutton,
-        "onUpdate:modelValue": _cache[9] || (_cache[9] = function ($event) {
+        "onUpdate:modelValue": _cache[10] || (_cache[10] = function ($event) {
           return $data.form.radiobutton = $event;
         }),
         name: "radio",
@@ -25334,9 +25419,9 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
         }
       }, null, 8
       /* PROPS */
-      , ["modelValue"]), _hoisted_11]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("td", null, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_Dropdown, {
+      , ["modelValue"]), _hoisted_10]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("td", null, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_Dropdown, {
         modelValue: $data.form.control,
-        "onUpdate:modelValue": _cache[10] || (_cache[10] = function ($event) {
+        "onUpdate:modelValue": _cache[11] || (_cache[11] = function ($event) {
           return $data.form.control = $event;
         }),
         options: $data.CreateQuery,
@@ -25344,13 +25429,14 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
         "class": "custom-dropdown",
         style: {
           "width": "200px"
-        }
+        },
+        disabled: $data.form.radiobutton == 'query' ? false : true
       }, null, 8
       /* PROPS */
-      , ["modelValue", "options"])])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("tr", null, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("td", null, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_RadioButton, {
+      , ["modelValue", "options", "disabled"])])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("tr", null, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("td", null, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_RadioButton, {
         type: "radio",
         modelValue: $data.form.radiobutton,
-        "onUpdate:modelValue": _cache[11] || (_cache[11] = function ($event) {
+        "onUpdate:modelValue": _cache[12] || (_cache[12] = function ($event) {
           return $data.form.radiobutton = $event;
         }),
         name: "radio",
@@ -25362,9 +25448,9 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
         }
       }, null, 8
       /* PROPS */
-      , ["modelValue"]), _hoisted_12]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("td", null, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_Dropdown, {
+      , ["modelValue"]), _hoisted_11]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("td", null, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_Dropdown, {
         modelValue: $data.form.control,
-        "onUpdate:modelValue": _cache[12] || (_cache[12] = function ($event) {
+        "onUpdate:modelValue": _cache[13] || (_cache[13] = function ($event) {
           return $data.form.control = $event;
         }),
         options: $data.CreateClear,
@@ -25372,13 +25458,14 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
         "class": "custom-dropdown",
         style: {
           "width": "200px"
-        }
+        },
+        disabled: $data.form.radiobutton == 'clear' ? false : true
       }, null, 8
       /* PROPS */
-      , ["modelValue", "options"])])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("tr", null, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("td", _hoisted_13, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_RadioButton, {
+      , ["modelValue", "options", "disabled"])])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("tr", null, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("td", _hoisted_12, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_RadioButton, {
         type: "radio",
         modelValue: $data.form.radiobutton,
-        "onUpdate:modelValue": _cache[13] || (_cache[13] = function ($event) {
+        "onUpdate:modelValue": _cache[14] || (_cache[14] = function ($event) {
           return $data.form.radiobutton = $event;
         }),
         name: "radio",
@@ -25390,15 +25477,7 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
         }
       }, null, 8
       /* PROPS */
-      , ["modelValue"]), _hoisted_14])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("tr", _hoisted_15, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("td", _hoisted_16, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("small", _hoisted_17, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(_ctx.errorMessage || ' '), 1
-      /* TEXT */
-      ), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_Button, {
-        type: "submit",
-        label: "Create",
-        onClick: _ctx.simpan
-      }, null, 8
-      /* PROPS */
-      , ["onClick"])])])])])])];
+      , ["modelValue"]), _hoisted_13])])])])])];
     }),
     _: 1
     /* STABLE */
@@ -33319,7 +33398,7 @@ var _hoisted_28 = {
 };
 
 var _hoisted_29 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("i", {
-  "class": "fa-solid fa-file",
+  "class": "fa-solid fa-ellipsis-v",
   style: {
     "padding-right": "5px",
     "padding-left": "15px"
@@ -33337,10 +33416,10 @@ var _hoisted_31 = {
 };
 
 var _hoisted_32 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("i", {
-  "class": "fa-solid fa-file",
+  "class": "fa-solid fa-file-import",
   style: {
     "padding-right": "5px",
-    "padding-left": "15px"
+    "padding-left": "8px"
   }
 }, null, -1
 /* HOISTED */
@@ -33373,42 +33452,6 @@ var _hoisted_37 = {
 };
 
 var _hoisted_38 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("i", {
-  "class": "fa-solid fa-users-line",
-  style: {
-    "padding-right": "5px",
-    "padding-left": "15px"
-  }
-}, null, -1
-/* HOISTED */
-);
-
-var _hoisted_39 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("p", null, " Department Data", -1
-/* HOISTED */
-);
-
-var _hoisted_40 = {
-  "class": "nav-item"
-};
-
-var _hoisted_41 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("i", {
-  "class": "fa-solid fa-people-group",
-  style: {
-    "padding-right": "5px",
-    "padding-left": "15px"
-  }
-}, null, -1
-/* HOISTED */
-);
-
-var _hoisted_42 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("p", null, " Employee Data", -1
-/* HOISTED */
-);
-
-var _hoisted_43 = {
-  "class": "nav-item"
-};
-
-var _hoisted_44 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("i", {
   "class": "fa-regular fa-clock",
   style: {
     "padding-right": "5px",
@@ -33418,15 +33461,15 @@ var _hoisted_44 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(
 /* HOISTED */
 );
 
-var _hoisted_45 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("p", null, " Daily Works", -1
+var _hoisted_39 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("p", null, " Daily Works", -1
 /* HOISTED */
 );
 
-var _hoisted_46 = {
+var _hoisted_40 = {
   "class": "nav-item"
 };
 
-var _hoisted_47 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("i", {
+var _hoisted_41 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("i", {
   "class": "fa-solid fa-user-clock",
   style: {
     "padding-right": "5px",
@@ -33436,15 +33479,15 @@ var _hoisted_47 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(
 /* HOISTED */
 );
 
-var _hoisted_48 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("p", null, " Group Shift ", -1
+var _hoisted_42 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("p", null, " Group Shift ", -1
 /* HOISTED */
 );
 
-var _hoisted_49 = {
+var _hoisted_43 = {
   "class": "nav-item"
 };
 
-var _hoisted_50 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("i", {
+var _hoisted_44 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("i", {
   "class": "fa-solid fa-database ",
   style: {
     "padding-right": "5px",
@@ -33454,15 +33497,15 @@ var _hoisted_50 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(
 /* HOISTED */
 );
 
-var _hoisted_51 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("p", null, " Working Schedule ", -1
+var _hoisted_45 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("p", null, " Working Schedule ", -1
 /* HOISTED */
 );
 
-var _hoisted_52 = {
+var _hoisted_46 = {
   "class": "nav-item"
 };
 
-var _hoisted_53 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("i", {
+var _hoisted_47 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("i", {
   "class": "fa-solid fa-calendar-week",
   style: {
     "padding-right": "5px",
@@ -33472,15 +33515,15 @@ var _hoisted_53 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(
 /* HOISTED */
 );
 
-var _hoisted_54 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("p", null, " Schedule", -1
+var _hoisted_48 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("p", null, " Schedule", -1
 /* HOISTED */
 );
 
-var _hoisted_55 = {
+var _hoisted_49 = {
   "class": "nav-item"
 };
 
-var _hoisted_56 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("i", {
+var _hoisted_50 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("i", {
   "class": "fa-solid fa-user",
   style: {
     "padding-right": "5px",
@@ -33490,11 +33533,11 @@ var _hoisted_56 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(
 /* HOISTED */
 );
 
-var _hoisted_57 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("p", null, " Users", -1
+var _hoisted_51 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("p", null, " Users", -1
 /* HOISTED */
 );
 
-var _hoisted_58 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("i", {
+var _hoisted_52 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("i", {
   "class": "fa-solid fa-fingerprint",
   style: {
     "padding-right": "5px"
@@ -33503,65 +33546,65 @@ var _hoisted_58 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(
 /* HOISTED */
 );
 
-var _hoisted_59 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("p", null, [/*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)(" Report "), /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("i", {
+var _hoisted_53 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("p", null, [/*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)(" Report "), /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("i", {
   "class": "right fas fa-angle-left"
 })], -1
 /* HOISTED */
 );
 
-var _hoisted_60 = {
+var _hoisted_54 = {
   "class": "nav nav-treeview"
 };
+var _hoisted_55 = {
+  "class": "nav-item"
+};
+
+var _hoisted_56 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("i", {
+  "class": "fa-solid fa-download",
+  style: {
+    "padding-right": "5px",
+    "padding-left": "15px"
+  }
+}, null, -1
+/* HOISTED */
+);
+
+var _hoisted_57 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("p", null, " Download Data Presensi ", -1
+/* HOISTED */
+);
+
+var _hoisted_58 = {
+  "class": "nav-item"
+};
+
+var _hoisted_59 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("i", {
+  "class": "fa-solid fa-download",
+  style: {
+    "padding-right": "5px",
+    "padding-left": "15px"
+  }
+}, null, -1
+/* HOISTED */
+);
+
+var _hoisted_60 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("p", null, " Data User & Finger print", -1
+/* HOISTED */
+);
+
 var _hoisted_61 = {
-  "class": "nav-item"
-};
-
-var _hoisted_62 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("i", {
-  "class": "fa-solid fa-download",
-  style: {
-    "padding-right": "5px",
-    "padding-left": "15px"
-  }
-}, null, -1
-/* HOISTED */
-);
-
-var _hoisted_63 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("p", null, " Download Data Presensi ", -1
-/* HOISTED */
-);
-
-var _hoisted_64 = {
-  "class": "nav-item"
-};
-
-var _hoisted_65 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("i", {
-  "class": "fa-solid fa-download",
-  style: {
-    "padding-right": "5px",
-    "padding-left": "15px"
-  }
-}, null, -1
-/* HOISTED */
-);
-
-var _hoisted_66 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("p", null, " Data User & Finger print", -1
-/* HOISTED */
-);
-
-var _hoisted_67 = {
   "class": "nav-item",
   style: {
     "display": "none!important"
   }
 };
 
-var _hoisted_68 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("i", {
+var _hoisted_62 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("i", {
   "class": "far fa-user nav-icon"
 }, null, -1
 /* HOISTED */
 );
 
-var _hoisted_69 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("p", null, "User", -1
+var _hoisted_63 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("p", null, "User", -1
 /* HOISTED */
 );
 
@@ -33635,40 +33678,30 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
     "class": ["nav-link", _ctx.$route().current().indexOf('finger.') >= 0 ? 'active' : '']
   }, [_hoisted_34, _hoisted_35], 2
   /* CLASS */
-  ), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("ul", _hoisted_36, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("li", _hoisted_37, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("a", {
-    href: _ctx.$route('finger.pageDepartemen'),
-    "class": ["nav-link", _ctx.$route().current('finger.pageDepartemen') ? 'active' : '']
+  ), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("ul", _hoisted_36, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" <li class=\"nav-item\">\n                <a :href=\"$route('finger.pageDepartemen')\" class=\"nav-link\" :class=\"$route().current('finger.pageDepartemen') ? 'active' : ''\">\n                <i class=\"fa-solid fa-users-line\" style=\"padding-right: 5px; padding-left: 15px;\" ></i>\n                  <p>  Department Data</p>\n                </a>\n              </li> "), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" <li class=\"nav-item\">\n                <a :href=\"$route('finger.pageDatapegawai')\" class=\"nav-link\" :class=\"$route().current('finger.pageDatapegawai') ? 'active' : ''\">\n                <i class=\"fa-solid fa-people-group\" style=\"padding-right: 5px; padding-left: 15px;\" ></i>\n                  <p>  Employee Data</p>\n                </a>\n              </li> "), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("li", _hoisted_37, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("a", {
+    href: _ctx.$route('finger.pageDatashift'),
+    "class": ["nav-link", _ctx.$route().current('finger.pageDatashift') ? 'active' : '']
   }, [_hoisted_38, _hoisted_39], 10
   /* CLASS, PROPS */
   , ["href"])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("li", _hoisted_40, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("a", {
-    href: _ctx.$route('finger.pageDatapegawai'),
-    "class": ["nav-link", _ctx.$route().current('finger.pageDatapegawai') ? 'active' : '']
+    href: _ctx.$route('finger.pageGroupshift'),
+    "class": ["nav-link", _ctx.$route().current('finger.pageGroupshift') ? 'active' : '']
   }, [_hoisted_41, _hoisted_42], 10
   /* CLASS, PROPS */
   , ["href"])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("li", _hoisted_43, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("a", {
-    href: _ctx.$route('finger.pageDatashift'),
-    "class": ["nav-link", _ctx.$route().current('finger.pageDatashift') ? 'active' : '']
+    href: _ctx.$route('finger.pageSchedulemaster'),
+    "class": ["nav-link", _ctx.$route().current('finger.pageSchedulemaster') ? 'active' : '']
   }, [_hoisted_44, _hoisted_45], 10
   /* CLASS, PROPS */
-  , ["href"])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("li", _hoisted_46, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("a", {
-    href: _ctx.$route('finger.pageGroupshift'),
-    "class": ["nav-link", _ctx.$route().current('finger.pageGroupshift') ? 'active' : '']
+  , ["href"])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" <li class=\"nav-item\">\n                <a :href=\"$route('finger.pageSchedulemaster')\" class=\"nav-link\" :class=\"$route().current('finger.pageShedulemaster') ? 'active' : ''\">\n                <i class=\"fa-solid fa-database \" style=\"padding-right: 5px; padding-left: 15px;\" ></i>\n                  <p> Working Schedule B </p>\n                </a>\n              </li> "), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("li", _hoisted_46, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("a", {
+    href: _ctx.$route('finger.pageSchedule'),
+    "class": ["nav-link", _ctx.$route().current('finger.pageSchedule') ? 'active' : '']
   }, [_hoisted_47, _hoisted_48], 10
   /* CLASS, PROPS */
   , ["href"])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("li", _hoisted_49, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("a", {
-    href: _ctx.$route('finger.pageSchedulemaster'),
-    "class": ["nav-link", _ctx.$route().current('finger.pageSchedulemaster') ? 'active' : '']
-  }, [_hoisted_50, _hoisted_51], 10
-  /* CLASS, PROPS */
-  , ["href"])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" <li class=\"nav-item\">\n                <a :href=\"$route('finger.pageSchedulemaster')\" class=\"nav-link\" :class=\"$route().current('finger.pageShedulemaster') ? 'active' : ''\">\n                <i class=\"fa-solid fa-database \" style=\"padding-right: 5px; padding-left: 15px;\" ></i>\n                  <p> Working Schedule B </p>\n                </a>\n              </li> "), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("li", _hoisted_52, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("a", {
-    href: _ctx.$route('finger.pageSchedule'),
-    "class": ["nav-link", _ctx.$route().current('finger.pageSchedule') ? 'active' : '']
-  }, [_hoisted_53, _hoisted_54], 10
-  /* CLASS, PROPS */
-  , ["href"])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("li", _hoisted_55, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("a", {
     href: _ctx.$route('finger.pageUsers'),
     "class": ["nav-link", _ctx.$route().current('finger.pageUsers') ? 'active' : '']
-  }, [_hoisted_56, _hoisted_57], 10
+  }, [_hoisted_50, _hoisted_51], 10
   /* CLASS, PROPS */
   , ["href"])])])], 2
   /* CLASS */
@@ -33677,24 +33710,24 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
   }, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("a", {
     href: "#",
     "class": ["nav-link", _ctx.$route().current().indexOf('mesin.') >= 0 ? 'active' : '']
-  }, [_hoisted_58, _hoisted_59], 2
+  }, [_hoisted_52, _hoisted_53], 2
   /* CLASS */
-  ), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("ul", _hoisted_60, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("li", _hoisted_61, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("a", {
+  ), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("ul", _hoisted_54, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("li", _hoisted_55, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("a", {
     href: _ctx.$route('mesin.pageDatapresensi'),
     "class": ["nav-link", _ctx.$route().current('mesin.pageDatapresensi') ? 'active' : '']
-  }, [_hoisted_62, _hoisted_63], 10
+  }, [_hoisted_56, _hoisted_57], 10
   /* CLASS, PROPS */
-  , ["href"])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("li", _hoisted_64, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("a", {
+  , ["href"])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("li", _hoisted_58, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("a", {
     href: _ctx.$route('mesin.pageUserfinger'),
     "class": ["nav-link", _ctx.$route().current('mesin.pageUserfinger') ? 'active' : '']
-  }, [_hoisted_65, _hoisted_66], 10
+  }, [_hoisted_59, _hoisted_60], 10
   /* CLASS, PROPS */
   , ["href"])])])], 2
   /* CLASS */
-  ), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" <li class=\"nav-item\" :class=\"$route().current().indexOf('transaksi') >= 0 ? 'menu-open' : ''\">\n            <a href=\"#\" class=\"nav-link\" :class=\"$route().current().indexOf('transaksi') >= 0 ? 'active' : ''\">\n              <i class=\"nav-icon fas fa-exchange-alt\"></i>\n              <p>\n                Transaksi\n                <i class=\"right fas fa-angle-left\"></i>\n              </p>\n            </a>\n            <ul class=\"nav nav-treeview\">\n              <li class=\"nav-item\">\n                <a :href=\"$route('transaksi.input_material')\" class=\"nav-link\" :class=\"$route().current('transaksi.input_material') ? 'active' : ''\">\n                  <i class=\"far fa-circle nav-icon\"></i>\n                  <p>Input Material</p>\n                </a>\n              </li>\n              <li class=\"nav-item\">\n                <a :href=\"$route('transaksi.lpbg')\" class=\"nav-link\" :class=\"$route().current('transaksi.lpbg') ? 'active' : ''\">\n                  <i class=\"far fa-circle nav-icon\"></i>\n                  <p>Input LPBG / SJN</p>\n                </a>\n              </li>\n              <li class=\"nav-item\">\n                 <a :href=\"$route('transaksi.sttp')\" class=\"nav-link\" :class=\"$route().current('transaksi.sttp') ? 'active' : ''\">\n                  <i class=\"far fa-circle nav-icon\"></i>\n                  <p>Create STTPP</p>\n                </a>\n              </li>\n            </ul>\n          </li> "), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" <li class=\"nav-item\" :class=\"$route().current().indexOf('cek') >= 0 ? 'menu-open' : ''\"> "), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" <a href=\"#\" class=\"nav-link\" :class=\"$route().current().indexOf('cek') >= 0 ? 'active' : ''\"> "), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" <i class=\"fas fa-check\"></i> "), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" <p> "), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" Pengecekan "), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" <i class=\"right fas fa-angle-left\"></i> "), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" </p> "), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" </a> "), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" <ul class=\"nav nav-treeview\">\n              <li class=\"nav-item\">\n                <a :href=\"$route('cek.ceklpbg')\" class=\"nav-link\" :class=\"$route().current('cek.ceklpbg') ? 'active' : ''\">\n                  <i class=\"far fa-circle nav-icon\"></i>\n                  <p>Cek Stok Barang</p>\n                </a>\n              </li>\n              <li class=\"nav-item\">\n                 <a :href=\"$route('cek.ceksttp')\" class=\"nav-link\" :class=\"$route().current('cek.ceksttp') ? 'active' : ''\">\n                  <i class=\"far fa-circle nav-icon\"></i>\n                  <p>Cek STTPP</p>\n                </a>\n              </li>\n            </ul> "), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" </li> "), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" <li class=\"nav-item\" :class=\"$route().current().indexOf('master') >= 0 ? 'menu-open' : ''\"> "), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" <a href=\"#\" class=\"nav-link\" :class=\"$route().current().indexOf('master') >= 0 ? 'active' : ''\"> "), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" <i class=\"nav-icon fas fa-database\"></i>\n              <p>\n                Data Master\n                <i class=\"right fas fa-angle-left\"></i>\n              </p> "), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" </a> "), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" <ul class=\"nav nav-treeview\"> "), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" <li class=\"nav-item\"> "), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" <a :href=\"$route('master.PageProyek')\" class=\"nav-link\" :class=\"$route().current('master.PageProyek') ? 'active' : ''\"> "), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" <i class=\"far fa-circle nav-icon\"></i> "), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" <p>Proyek</p> "), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" </a> "), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" </li> "), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" <li class=\"nav-item\">\n                <a :href=\"$route('master.PageMaster')\" class=\"nav-link\" :class=\"$route().current('master.PageMaster') ? 'active' : ''\">\n                  <i class=\"far fa-circle nav-icon\"></i>\n                  <p>Lokasi</p>\n                </a>\n              </li> "), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" <li class=\"nav-item\">\n                 <a :href=\"$route('master.PageGedung')\" class=\"nav-link\" :class=\"$route().current('master.PageGedung') ? 'active' : ''\">\n                  <i class=\"far fa-circle nav-icon\"></i>\n                  <p>Gedung</p>\n                </a>\n              </li> "), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("li", _hoisted_67, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("a", {
+  ), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" <li class=\"nav-item\" :class=\"$route().current().indexOf('transaksi') >= 0 ? 'menu-open' : ''\">\n            <a href=\"#\" class=\"nav-link\" :class=\"$route().current().indexOf('transaksi') >= 0 ? 'active' : ''\">\n              <i class=\"nav-icon fas fa-exchange-alt\"></i>\n              <p>\n                Transaksi\n                <i class=\"right fas fa-angle-left\"></i>\n              </p>\n            </a>\n            <ul class=\"nav nav-treeview\">\n              <li class=\"nav-item\">\n                <a :href=\"$route('transaksi.input_material')\" class=\"nav-link\" :class=\"$route().current('transaksi.input_material') ? 'active' : ''\">\n                  <i class=\"far fa-circle nav-icon\"></i>\n                  <p>Input Material</p>\n                </a>\n              </li>\n              <li class=\"nav-item\">\n                <a :href=\"$route('transaksi.lpbg')\" class=\"nav-link\" :class=\"$route().current('transaksi.lpbg') ? 'active' : ''\">\n                  <i class=\"far fa-circle nav-icon\"></i>\n                  <p>Input LPBG / SJN</p>\n                </a>\n              </li>\n              <li class=\"nav-item\">\n                 <a :href=\"$route('transaksi.sttp')\" class=\"nav-link\" :class=\"$route().current('transaksi.sttp') ? 'active' : ''\">\n                  <i class=\"far fa-circle nav-icon\"></i>\n                  <p>Create STTPP</p>\n                </a>\n              </li>\n            </ul>\n          </li> "), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" <li class=\"nav-item\" :class=\"$route().current().indexOf('cek') >= 0 ? 'menu-open' : ''\"> "), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" <a href=\"#\" class=\"nav-link\" :class=\"$route().current().indexOf('cek') >= 0 ? 'active' : ''\"> "), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" <i class=\"fas fa-check\"></i> "), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" <p> "), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" Pengecekan "), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" <i class=\"right fas fa-angle-left\"></i> "), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" </p> "), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" </a> "), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" <ul class=\"nav nav-treeview\">\n              <li class=\"nav-item\">\n                <a :href=\"$route('cek.ceklpbg')\" class=\"nav-link\" :class=\"$route().current('cek.ceklpbg') ? 'active' : ''\">\n                  <i class=\"far fa-circle nav-icon\"></i>\n                  <p>Cek Stok Barang</p>\n                </a>\n              </li>\n              <li class=\"nav-item\">\n                 <a :href=\"$route('cek.ceksttp')\" class=\"nav-link\" :class=\"$route().current('cek.ceksttp') ? 'active' : ''\">\n                  <i class=\"far fa-circle nav-icon\"></i>\n                  <p>Cek STTPP</p>\n                </a>\n              </li>\n            </ul> "), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" </li> "), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" <li class=\"nav-item\" :class=\"$route().current().indexOf('master') >= 0 ? 'menu-open' : ''\"> "), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" <a href=\"#\" class=\"nav-link\" :class=\"$route().current().indexOf('master') >= 0 ? 'active' : ''\"> "), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" <i class=\"nav-icon fas fa-database\"></i>\n              <p>\n                Data Master\n                <i class=\"right fas fa-angle-left\"></i>\n              </p> "), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" </a> "), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" <ul class=\"nav nav-treeview\"> "), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" <li class=\"nav-item\"> "), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" <a :href=\"$route('master.PageProyek')\" class=\"nav-link\" :class=\"$route().current('master.PageProyek') ? 'active' : ''\"> "), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" <i class=\"far fa-circle nav-icon\"></i> "), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" <p>Proyek</p> "), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" </a> "), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" </li> "), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" <li class=\"nav-item\">\n                <a :href=\"$route('master.PageMaster')\" class=\"nav-link\" :class=\"$route().current('master.PageMaster') ? 'active' : ''\">\n                  <i class=\"far fa-circle nav-icon\"></i>\n                  <p>Lokasi</p>\n                </a>\n              </li> "), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" <li class=\"nav-item\">\n                 <a :href=\"$route('master.PageGedung')\" class=\"nav-link\" :class=\"$route().current('master.PageGedung') ? 'active' : ''\">\n                  <i class=\"far fa-circle nav-icon\"></i>\n                  <p>Gedung</p>\n                </a>\n              </li> "), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("li", _hoisted_61, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("a", {
     href: _ctx.$route('master.PageUser'),
     "class": ["nav-link", _ctx.$route().current('master.PageUser') ? 'active' : '']
-  }, [_hoisted_68, _hoisted_69], 10
+  }, [_hoisted_62, _hoisted_63], 10
   /* CLASS, PROPS */
   , ["href"])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" </ul> "), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" </li> ")])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" /.sidebar-menu ")]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" /.sidebar ")])], 64
   /* STABLE_FRAGMENT */
@@ -33874,7 +33907,8 @@ var getCekSttp = function getCekSttp(params) {
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "getcreate": () => (/* binding */ getcreate)
+/* harmony export */   "getcreate": () => (/* binding */ getcreate),
+/* harmony export */   "upload": () => (/* binding */ upload)
 /* harmony export */ });
 /* harmony import */ var _httpClient__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./httpClient */ "./resources/js/Api/httpClient.js");
 
@@ -33883,6 +33917,10 @@ var getcreate = function getcreate(params) {
   return _httpClient__WEBPACK_IMPORTED_MODULE_0__.default.get('/device/get-create', {
     params: params
   });
+};
+
+var upload = function upload(params) {
+  return _httpClient__WEBPACK_IMPORTED_MODULE_0__.default.post('/device/upload-device', params);
 };
 
 
@@ -35042,7 +35080,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, "\n.custom-dropdown {\n    margin-left: 20px;\n}\nlabel[for=\"control\"] {\n        margin-left: 27px;\n        margin-top: 3px;\n}\nlabel[for=\"update\"] {\n        margin-left: 27px;\n        margin-top: 3px;\n}\nlabel[for=\"delete\"] {\n        margin-left: 27px;\n        margin-top: 3px;\n}\nlabel[for=\"query\"] {\n        margin-left: 27px;\n        margin-top: 3px;\n}\nlabel[for=\"clear\"] {\n        margin-left: 27px;\n        margin-top: 3px;\n}\nlabel[for=\"update\"] {\n        margin-left: 27px;\n        margin-top: 3px;\n}\nlabel[for=\"userdefined\"] {\n        margin-left: 27px;\n        margin-top: 3px;\n}\n\n", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, "\n.custom-dropdown {\n    margin-left: 20px;\n}\nlabel[for=\"control\"] {\n        margin-left: 27px;\n        margin-top: 3px;\n}\nlabel[for=\"update\"] {\n        margin-left: 27px;\n        margin-top: 3px;\n}\nlabel[for=\"delete\"] {\n        margin-left: 27px;\n        margin-top: 3px;\n}\nlabel[for=\"query\"] {\n        margin-left: 27px;\n        margin-top: 3px;\n}\nlabel[for=\"clear\"] {\n        margin-left: 27px;\n        margin-top: 3px;\n}\nlabel[for=\"update\"] {\n        margin-left: 27px;\n        margin-top: 3px;\n}\nlabel[for=\"userdefined\"] {\n        margin-left: 27px;\n        margin-top: 3px;\n}\n", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 

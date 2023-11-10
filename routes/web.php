@@ -146,6 +146,7 @@ Route::prefix('device')->name('device.')->group(function () {
 
     Route::get('/createcmd', [MesinController::class, 'pageCreateCmd'])->name('pageCreateCmd');
     Route::get('/get-create', [MesinController::class, 'pageCreateCmd'])->name('getcreate');
+    Route::post('/upload-device', [MesinController::class, 'uploadDevice'])->name('uploadDevice');
 
 });
 

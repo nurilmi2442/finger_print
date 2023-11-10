@@ -8,7 +8,8 @@
     <DataTable :value="Create.data" :lazy="true" :paginator="true" :rows="Create.per_page" ref="dt"
       :totalRecords="Create.total" :loading="loading" @page="onPage($event)"
       paginatorTemplate="FirstPageLink PrevPageLink PageLinks NextPageLink LastPageLink CurrentPageReport"
-      currentPageReportTemplate="Showing {first} to {last} of {totalRecords}" responsiveLayout="scroll">
+      currentPageReportTemplate="Showing {first} to {last} of {totalRecords}" responsiveLayout="scroll"
+      v-model:selection="selectedcreate" selectionMode="single" :metaKeySelection="metaKey" dataKey="id">
       <Column field="" header="No">
         <template #body="slotProps">
           {{ ((lazyParams.page - 1) * Create.per_page) + slotProps.index + 1 }}
@@ -31,13 +32,12 @@
             <label for="control">Control</label>
         </td>
     <td>
-        <Dropdown v-model="form.control" :options="CreateData" optionLabel="control"  class="custom-dropdown" style="width: 200px"/>
+        <Dropdown v-model="form.control" :options="CreateData" optionLabel="control"  class="custom-dropdown" style="width: 200px"  :disabled="form.radiobutton == 'control' ? false : true"/>
     </td>
     <td rowspan="6">
         <span class="p-float-label" style="width: 80%;">
-        <Textarea id="value" v-model="value" :class="{ 'p-invalid': errorMessage }" rows="10" cols="50"
-        aria-describedby="text-error"></Textarea>
-      <label for="value">Description</label>
+        <Textarea id="value" v-model="command" :class="{ 'p-invalid': errorMessage }" rows="10" cols="50" aria-describedby="text-error">{{  form.command  }}</Textarea>
+        <Button type="submit" label="Create" @click="simpan" style="margin-left: 310px;"></Button>
         </span>
     </td>
   </tr>
@@ -47,7 +47,7 @@
         <label for="update">Update</label>
     </td>
     <td>
-        <Dropdown v-model="form.control" :options="CreateUpdate" optionLabel="control" class="custom-dropdown" style="width: 200px"/>
+        <Dropdown v-model="form.control" :options="CreateUpdate" optionLabel="control" class="custom-dropdown" style="width: 200px" :disabled="form.radiobutton == 'update' ? false : true"/>
     </td>
   </tr>
   <tr>
@@ -56,7 +56,7 @@
         <label for="delete">Delete</label>
     </td>
     <td>
-        <Dropdown v-model="form.control" :options="CreateDelete" optionLabel="control"  class="custom-dropdown" style="width: 200px"/>
+        <Dropdown v-model="form.control" :options="CreateDelete" optionLabel="control"  class="custom-dropdown" style="width: 200px"  :disabled="form.radiobutton == 'delete' ? false : true"/>
     </td>
   </tr>
   <tr>
@@ -65,7 +65,7 @@
         <label for="query">Query</label>
     </td>
     <td>
-        <Dropdown v-model="form.control" :options="CreateQuery" optionLabel="control" class="custom-dropdown" style="width: 200px"/>
+        <Dropdown v-model="form.control" :options="CreateQuery" optionLabel="control" class="custom-dropdown" style="width: 200px"  :disabled="form.radiobutton == 'query' ? false : true"/>
     </td>
   </tr>
   <tr>
@@ -74,7 +74,7 @@
         <label for="clear">Clear</label>
     </td>
     <td>
-        <Dropdown v-model="form.control" :options="CreateClear" optionLabel="control" class="custom-dropdown" style="width: 200px"/>
+        <Dropdown v-model="form.control" :options="CreateClear" optionLabel="control" class="custom-dropdown" style="width: 200px"  :disabled="form.radiobutton == 'clear' ? false : true"/>
     </td>
   </tr>
   <tr>
@@ -83,16 +83,6 @@
         <label for="userdefined">User - Defined</label>
     </td>
   </tr>
-
-
-    <tr align="end">
-    <td colspan="3">
-        <small id="text-error" class="p-error">{{ errorMessage || '&nbsp;' }}</small>
-        <Button type="submit" label="Create" @click="simpan"></Button>
-
-    </td>
-
-</tr>
 
 </table>
 </div>
@@ -111,7 +101,8 @@ import Toolbar from 'primevue/toolbar';
 import RadioButton from 'primevue/radiobutton';
 import InputText from 'primevue/inputtext';
 import ColumnGroup from 'primevue/columngroup';
-import {getcreate} from '../../Api/createcmd.api';
+import {getcreate, upload} from '../../Api/createcmd.api';
+import {ref} from "vue";
 
 export default {
     name: "DeviceCmd",
@@ -125,6 +116,35 @@ export default {
         Toolbar,
         Button,
         ColumnGroup,
+    },
+    watch:{
+        selectedcreate(val){
+            this.form.sn = val.sn;
+        },
+        'form.control'(val){
+            console.log("Data", val)
+            if(this.form.radiobutton == 'control'){
+               const cmd =  this.CreateData.find(x=>x.control == val.control);
+               this.form.command = cmd.command;
+            }
+            else if (this.form.radiobutton == 'update'){
+               const cmd =  this.CreateUpdate.find(x=>x.control == val.control);
+               this.form.command = cmd.command;
+            }
+            else if (this.form.radiobutton == 'delete'){
+               const cmd =  this.CreateDelete.find(x=>x.control == val.control);
+               this.form.command = cmd.command;
+            }
+            else if (this.form.radiobutton == 'query'){
+               const cmd =  this.CreateQuery.find(x=>x.control == val.control);
+               this.form.command = cmd.command;
+            }
+            else if (this.form.radiobutton == 'clear'){
+               const cmd =  this.CreateClear.find(x=>x.control == val.control);
+               this.form.command = cmd.command;
+            }
+           console.log(this.CreateData, this.form.command);
+        },
     },
 
     data() {
@@ -140,27 +160,23 @@ export default {
             CreateClear:[],
             CreateQuery:[],
             filters: {},
+            command:[],
             modalTitle:null,
             submitted: false,
+            selectedcreate:[],
             form:{
-            radiobutton:null,
+               sn: null,
+               radiobutton:null,
+               getDataDB:null,
                control:null,
-               update:null,
-               delete:null,
-               query:null,
-               clear:null,
-               userdefined:null,
                flag:null,
 
 
             },
             initform:{
+               sn:null,
+               radiobutton:null,
                control:null,
-               update:null,
-               delete:null,
-               query:null,
-               clear:null,
-               userdefined:null,
                flag:null,
             },
 
@@ -179,10 +195,8 @@ export default {
             this.loading = true;
             const res = await getcreate({page : this.lazyParams.page})
 
-
             this.Device = res.data.data;
             this.loading = false;
-
 
         },
         onPage(event) {
@@ -190,6 +204,18 @@ export default {
             this.loadLazyData();
 
         },
+        async simpan(){
+        this.loading = true;
+        const  data = await upload(this.form);
+        console.log('Data berhasil dikirim');
+        this.loading = false;
+        this.$toast.add({
+            severity: 'success',
+            summary: 'Informasi!',
+            detail: 'Berhasil Di simpan',
+            life: 3000})
+        }
+
     },
 
     mounted(){
@@ -203,6 +229,9 @@ export default {
     }
 
 };
+const metaKey = ref(true);
+const selectedcreate = ref();
+
 </script>
 
 <style>
@@ -244,7 +273,6 @@ export default {
         margin-left: 27px;
         margin-top: 3px;
     }
-
 </style>
 
 

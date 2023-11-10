@@ -173,27 +173,27 @@ class MesinController extends Controller
 
         $createcmd = Datamesin::paginate(10);
         $createcmddata = DB::table('create_cmd')
-        ->select('control')
+        ->select('control','command')
         ->where('flag', 'control')
         ->get();
 
         $createupdate = DB::table('create_cmd')
-        ->select('control')
+        ->select('control','command')
         ->Where('flag', 'update')
         ->get();
 
         $createdelete = DB::table('create_cmd')
-        ->select('control')
+        ->select('control','command')
         ->Where('flag', 'delete')
         ->get();
 
         $createquery= DB::table('create_cmd')
-        ->select('control')
+        ->select('control','command')
         ->Where('flag', 'query')
         ->get();
 
         $createclear = DB::table('create_cmd')
-        ->select('control')
+        ->select('control','command')
         ->Where('flag', 'clear')
         ->get();
 
@@ -210,6 +210,45 @@ class MesinController extends Controller
             'createclear' => $createclear
         ]);
     }
+
+    public function uploadDevice(Request $request)
+    {
+
+        // $selectedData = $request->input('selectedData');
+
+        // $selectedCommand = $request->input('selectedCommand');
+
+        // $device = DB::table('datamesin')
+        // ->selectRaw("id, ip, sn")
+        // ->where('id', $request->sn)
+        // ->first();
+
+
+        // $command = DB::table('create_cmd')
+        // ->selectRaw("id, command")
+        // ->where('id', $request->command)
+        // ->first();
+
+        // $upload = Device_cmd::create([
+        //     'sn' => $device->sn,
+        //     'command' => $command->command,
+        // ]);
+
+        // return response()->json([
+        //     'data' => $upload,
+        //     'command' => $command,
+        //     'message' => 'Data user berhasil diupload'
+        // ]);
+
+        $cmdData = $request->input('command');
+        // $device = DB::table('datamesin')->selectRaw("id, ip, sn")->where('id', $request->sn)->first();
+
+        // Device_cmd::create(['sn' => $device->sn,]);
+        Device_cmd::create(['command' => $cmdData, 'sn'=>$request->input('sn')]);
+
+        return response()->json(['message' => 'Data berhasil disimpan']);
+    }
+
 
 
 
