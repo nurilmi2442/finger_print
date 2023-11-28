@@ -214,36 +214,9 @@ class MesinController extends Controller
     public function uploadDevice(Request $request)
     {
 
-        // $selectedData = $request->input('selectedData');
-
-        // $selectedCommand = $request->input('selectedCommand');
-
-        // $device = DB::table('datamesin')
-        // ->selectRaw("id, ip, sn")
-        // ->where('id', $request->sn)
-        // ->first();
-
-
-        // $command = DB::table('create_cmd')
-        // ->selectRaw("id, command")
-        // ->where('id', $request->command)
-        // ->first();
-
-        // $upload = Device_cmd::create([
-        //     'sn' => $device->sn,
-        //     'command' => $command->command,
-        // ]);
-
-        // return response()->json([
-        //     'data' => $upload,
-        //     'command' => $command,
-        //     'message' => 'Data user berhasil diupload'
-        // ]);
 
         $cmdData = $request->input('command');
-        // $device = DB::table('datamesin')->selectRaw("id, ip, sn")->where('id', $request->sn)->first();
 
-        // Device_cmd::create(['sn' => $device->sn,]);
         Device_cmd::create(['command' => $cmdData, 'sn'=>$request->input('sn')]);
 
         return response()->json(['message' => 'Data berhasil disimpan']);
